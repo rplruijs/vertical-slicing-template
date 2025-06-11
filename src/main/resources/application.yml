@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: vertical-slicing
+  datasource:
+    url: jdbc:postgresql://localhost:5432/your_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    create-schemas: true
+    locations: classpath:db/migration
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      transaction-id-prefix: "dinner"
+    consumer:
+      group-id: dinner
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+      auto-offset-reset: earliest
+
+
+axon:
+  serializer:
+    ## xstream is not compatible anymore with jdk17+
+    general: jackson
+  axonserver:
+    enabled: false
+  eventhandling:
+    processors:
+      relations:
+        mode: subscribing
