@@ -1,0 +1,130 @@
+<div id= "parent" th:fragment="formFragment(form)" class="bg-white rounded-3xl shadow-xl overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <button
+                type="button"
+                class="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                onclick="toggleForm('financialForm')"
+        >
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-nature-green to-green-600 rounded-full flex items-center justify-center">
+                    <span class="text-white text-xl">💰</span>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Monthly Grocery Support</h3>
+                    <p class="text-gray-600">Request up to €100 for organic groceries</p>
+                </div>
+            </div>
+            <div class="text-nature-green text-2xl transform transition-transform" id="financialToggle">
+                +
+            </div>
+        </button>
+
+        <div id="financialForm" class="hidden px-8 pb-8">
+            <form class="space-y-6" id="supportRequestForm">
+                <!-- Person's Details -->
+                <div>
+                    <div class="space-y-2">
+                        <label for="nomineeName" class="block text-sm font-semibold text-gray-700">
+                            Person's Name *
+                        </label>
+                        <input
+                                type="text"
+                                id="nomineeName"
+                                name="nomineeName"
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all placeholder-gray-400"
+                                placeholder="Enter name"
+                        >
+                    </div>
+                </div>
+
+                <!-- Relationship -->
+                <div class="space-y-2">
+                    <label for="relationship" class="block text-sm font-semibold text-gray-700">
+                        Your Relationship to This Person *
+                    </label>
+                    <select
+                            id="relationship"
+                            name="relationship"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all"
+                    >
+                        <option value="">Select relationship</option>
+                        <option value="self">Self</option>
+                        <option value="family">Family member</option>
+                        <option value="friend">Friend</option>
+                        <option value="neighbor">Neighbor</option>
+                        <option value="colleague">Colleague</option>
+                        <option value="community-member">Community member</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Amount -->
+                <div class="space-y-2">
+                    <label for="amount" class="block text-sm font-semibold text-gray-700">
+                        Requested Amount (€) *
+                    </label>
+                    <div class="relative">
+                        <input
+                                type="range"
+                                id="amount"
+                                name="amount"
+                                min="0"
+                                max="100"
+                                value="50"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                oninput="updateAmountDisplay(this.value)"
+                        >
+                        <div class="flex justify-between text-sm text-gray-500 mt-1">
+                            <span>€0</span>
+                            <span>€100</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-nature-green" id="amountDisplay">€50</span>
+                    </div>
+                </div>
+
+                <!-- Month Selection -->
+                <div class="space-y-2">
+                    <label for="month" class="block text-sm font-semibold text-gray-700">
+                        For which month? *
+                    </label>
+                    <select
+                            id="month"
+                            name="month"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all"
+                    >
+                        <option value="">Select a month</option>
+                        <option value="2025-07">July 2025</option>
+                        <option value="2025-08">August 2025</option>
+                        <option value="2025-09">September 2025</option>
+                        <option value="2025-10">October 2025</option>
+                        <option value="2025-11">November 2025</option>
+                        <option value="2025-12">December 2025</option>
+                    </select>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="space-y-2">
+                    <label for="notes" class="block text-sm font-semibold text-gray-700">
+                        Additional Notes (Optional)
+                    </label>
+                    <textarea
+                            id="notes"
+                            name="notes"
+                            rows="3"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all placeholder-gray-400"
+                            placeholder="Share any specific needs or circumstances..."
+                    ></textarea>
+                </div>                            <button
+                    type="submit"
+                    class="w-full bg-gradient-to-r from-nature-green to-green-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all"
+            >
+                💾 Save Support Request
+            </button>
+            </form>
+        </div>                </div>
+</div>

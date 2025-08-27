@@ -2,7 +2,7 @@ spring:
   application:
     name: vertical-slicing
   datasource:
-    url: jdbc:postgresql://localhost:5432/your_db
+    url: jdbc:postgresql://localhost:5432/social_supermarket
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -22,15 +22,27 @@ spring:
       properties:
         spring.json.trusted.packages: "*"
       auto-offset-reset: earliest
-
-
 axon:
   serializer:
     ## xstream is not compatible anymore with jdk17+
     general: jackson
   axonserver:
     enabled: false
-  eventhandling:
-    processors:
-      relations:
+  processors:
+      members:
         mode: subscribing
+      contributions-to-close:
+        mode: subscribing
+
+
+
+app:
+  scheduling:
+    close-contribution: "*/1 * * * * *"
+
+# JWT Configuration
+jwt:
+  secretKey: yourSecureSecretKeyHereShouldBeAtLeast32CharactersLong
+  tokenValidityInMinutes: 60
+  cookieName: jwt_token
+  issuer: social-supermarket

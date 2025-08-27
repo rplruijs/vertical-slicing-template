@@ -3,19 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Modeling & Event Sourcing</title>
+    <title>Social Supermarket - Community Care Through Healthy Food</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nature-green': '#22c55e',
+                        'warm-orange': '#fb923c',
+                        'soft-blue': '#60a5fa',
+                        'earth-brown': '#a3a3a3'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 min-h-screen">
-<header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 px-4">
-    <div class="container mx-auto max-w-4xl">
-        <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">
-            Event Modeling combined with Event Sourcing
-        </h1>
-        <p class="text-xl md:text-2xl text-center font-light">
-            A beautiful combination?
-        </p>
+<body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen">
+<!-- Navigation -->
+<nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-green-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-br from-nature-green to-warm-orange rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">🌱</span>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Social Supermarket</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-nature-green transition-colors">About</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-nature-green transition-colors">How It Works</a>
+                <a href="#community" class="text-gray-600 hover:text-nature-green transition-colors">Community</a>
+                <a href="/login" class="bg-nature-green text-white px-6 py-2 rounded-full hover:bg-green-600 transition-colors">Login</a>
+            </div>
+        </div>
     </div>
-</header>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative overflow-hidden py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                        Healthy Food,
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-nature-green to-warm-orange">
+                                Caring Community
+                            </span>
+                    </h1>
+                    <p class="text-xl text-gray-600 leading-relaxed">
+                        Join our beautiful community where trust, organic products, and mutual support create a sustainable future for everyone.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="/registration" class="bg-gradient-to-r from-nature-green to-green-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all">
+                        Become a Member
+                    </a>
+                    <button class="border-2 border-nature-green text-nature-green px-8 py-4 rounded-full font-semibold hover:bg-nature-green hover:text-white transition-all">
+                        Support Others
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-8 pt-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-900">€100</div>
+                        <div class="text-sm text-gray-600">Monthly support</div>
+                    </div>
+                    <div class="w-px h-12 bg-gray-300"></div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-900">100%</div>
+                        <div class="text-sm text-gray-600">Organic & Local</div>
+                    </div>
+                    <div class="w-px h-12 bg-gray-300"></div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-900">Trust</div>
+                        <div class="text-sm text-gray-600">Based community</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="bg-gradient-to-br from-nature-green/20 to-warm-orange/20 rounded-3xl p-8 backdrop-blur-sm">
+                    <div class="bg-white rounded-2xl p-6 shadow-xl">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Available Budget</span>
+                                <span class="text-2xl font-bold text-nature-green">€2,847</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-nature-green to-warm-orange w-3/4 rounded-full"></div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                        <span class="text-nature-green text-sm">✓</span>
+                                    </div>
+                                    <span class="text-gray-700">12 requests approved today</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                                        <span class="text-warm-orange text-sm">♥</span>
+                                    </div>
+                                    <span class="text-gray-700">3 donations received</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-4 mb-16">
+            <h2 class="text-4xl font-bold text-gray-900">How It Works</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Simple, transparent, and built on trust. Our community-driven approach makes healthy food accessible to everyone.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center space-y-6 p-6 rounded-2xl hover:bg-green-50 transition-colors">
+                <div class="w-16 h-16 bg-gradient-to-br from-nature-green to-green-600 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white text-2xl">👥</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900">Join Our Community</h3>
+                <p class="text-gray-600">
+                    Become a member of our trust-based community. Everyone is welcome, regardless of their situation.
+                </p>
+            </div>
+
+            <div class="text-center space-y-6 p-6 rounded-2xl hover:bg-orange-50 transition-colors">
+                <div class="w-16 h-16 bg-gradient-to-br from-warm-orange to-orange-600 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white text-2xl">🛒</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900">Request Support</h3>
+                <p class="text-gray-600">
+                    Apply for up to €100 monthly support for organic groceries. You can even request for someone else in need.
+                </p>
+            </div>
+
+            <div class="text-center space-y-6 p-6 rounded-2xl hover:bg-blue-50 transition-colors">
+                <div class="w-16 h-16 bg-gradient-to-br from-soft-blue to-blue-600 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-white text-2xl">💳</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900">Shop & Share</h3>
+                <p class="text-gray-600">
+                    Use your community card to purchase organic, local products and share the abundance with others.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Impact Section -->
+<section id="community" class="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <h2 class="text-4xl font-bold text-gray-900">
+                        Building Trust,
+                        <span class="text-nature-green">Growing Together</span>
+                    </h2>
+                    <p class="text-xl text-gray-600">
+                        Our community thrives on mutual support, organic values, and the belief that everyone deserves access to healthy food.
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-3xl font-bold text-nature-green mb-2">847</div>
+                        <div class="text-gray-600">Families supported</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-3xl font-bold text-warm-orange mb-2">€24k</div>
+                        <div class="text-gray-600">Community donations</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-3xl font-bold text-soft-blue mb-2">100%</div>
+                        <div class="text-gray-600">Organic products</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-3xl font-bold text-green-600 mb-2">15</div>
+                        <div class="text-gray-600">Local farmers</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-nature-green">
+                    <p class="text-gray-700 italic mb-4">
+                        "This community changed my life. Not only can I feed my family healthy food, but I've found a support system that truly cares."
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                            <span class="text-nature-green font-semibold">M</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Maria K.</div>
+                            <div class="text-sm text-gray-600">Community Member</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-warm-orange">
+                    <p class="text-gray-700 italic mb-4">
+                        "Supporting this community gives me so much joy. Knowing my donations directly help families in my neighborhood is incredible."
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                            <span class="text-warm-orange font-semibold">J</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Johan V.</div>
+                            <div class="text-sm text-gray-600">Community Donor</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-nature-green to-green-600">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <div class="space-y-8">
+            <h2 class="text-4xl font-bold text-white">
+                Ready to Join Our Community?
+            </h2>
+            <p class="text-xl text-green-100">
+                Whether you need support or want to help others, our community welcomes you with open arms.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-white text-nature-green px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all">
+                    Apply for Support
+                </button>
+                <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-nature-green transition-all">
+                    Become a Donor
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-nature-green to-warm-orange rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">🌱</span>
+                    </div>
+                    <span class="text-xl font-bold">Social Supermarket</span>
+                </div>
+                <p class="text-gray-400">
+                    Building a sustainable future through community care and healthy food access.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-semibold">Community</h4>
+                <div class="space-y-2 text-gray-400">
+                    <div>Become a Member</div>
+                    <div>Support Others</div>
+                    <div>Local Farmers</div>
+                    <div>Success Stories</div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-semibold">Support</h4>
+                <div class="space-y-2 text-gray-400">
+                    <div>How It Works</div>
+                    <div>Request Guidelines</div>
+                    <div>Donation Info</div>
+                    <div>Contact Us</div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-semibold">Connect</h4>
+                <div class="space-y-2 text-gray-400">
+                    <div>Newsletter</div>
+                    <div>Community Events</div>
+                    <div>Social Media</div>
+                    <div>Local Partnerships</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Social Supermarket. Built with care for our community.</p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

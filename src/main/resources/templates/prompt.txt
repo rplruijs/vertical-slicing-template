@@ -1,0 +1,7 @@
+I want to design a new page.
+It is an extension of the personal-landings-page.html. Please add the following sections.
+- Personal welcome section. Goodmorning <firstname>, we hope you will have a nice day.
+- Current balance section. Which shows the current balance
+PLease make a plan to do this. Again this only about design.
+And want the same design of the pages that are already there. So only html, tailwind and a minumum of custom javascript.
+
