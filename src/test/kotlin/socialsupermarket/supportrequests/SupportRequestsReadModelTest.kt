@@ -6,7 +6,7 @@ import org.axonframework.queryhandling.QueryGateway
 import org.springframework.beans.factory.annotation.Autowired
 import org.junit.jupiter.api.Test
 import socialsupermarket.common.support.BaseIntegrationTest
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import java.util.UUID
 
@@ -51,7 +51,7 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
         }
         val expectedReadModel = SupportRequestReadModel(readModelEntity)
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             val actualReadModel = queryGateway.query(GetSupportRequestQuery(REQUEST_ID), SupportRequestReadModel::class.java)
 
             assertThat(actualReadModel.get()).isNotNull
@@ -82,7 +82,7 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
         }
         val expectedReadModel = SupportRequestsReadModel(listOf(readModelEntity))
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             val actualReadModel = queryGateway.query(GetAllSupportRequests(), SupportRequestsReadModel::class.java)
 
             assertThat(actualReadModel.get()).isNotNull

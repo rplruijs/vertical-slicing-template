@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.core.KafkaTemplate
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.StreamAssertions
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.events.MemberImportedEvent
 import socialsupermarket.memberexported.MemberExportedEvent
 import java.time.LocalDate
@@ -31,7 +31,7 @@ class MemberExportedProcessorTest : BaseIntegrationTest() {
         val birthDate = LocalDate.parse("09-03-1978", DateTimeFormatter.ofPattern("dd-MM-yyyy"))
         val currentBalance = 0.0
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             kafkaTemplate.executeInTransaction {
                 it
                     .send(

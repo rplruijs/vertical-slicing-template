@@ -7,7 +7,7 @@ import org.axonframework.queryhandling.QueryGateway
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import socialsupermarket.common.support.BaseIntegrationTest
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.contributionstoclose.ContributionToCloseReadModelEntity
 import socialsupermarket.contributionstoclose.ContributionsToCloseReadModel
 import socialsupermarket.contributionstoclose.GetContributionToClose
@@ -45,7 +45,7 @@ class ContribitionsToCloseReadModelTest : BaseIntegrationTest() {
             }
         ))
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             val result = queryGateway.query(GetContributionToClose(CONTRIBUTION_ID), ContributionsToCloseReadModel::class.java)
 
             Assertions.assertThat(result.get()).isNotNull

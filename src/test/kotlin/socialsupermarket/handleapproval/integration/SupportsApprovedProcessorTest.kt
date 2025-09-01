@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.StreamAssertions
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
@@ -50,7 +50,7 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
 
         commandGateway.sendAndWait<Any>(requestSupportCommand)
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             streamAssertions.assertEvent(CONTRIBUTION_ID) {it is SupportGivenEvent}
         }
     }

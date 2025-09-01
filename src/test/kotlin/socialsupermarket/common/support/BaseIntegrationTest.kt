@@ -1,13 +1,9 @@
 package socialsupermarket.common.support
 
 import org.awaitility.Awaitility
-import org.axonframework.commandhandling.gateway.RetryScheduler
-import org.axonframework.commandhandling.gateway.IntervalRetryScheduler
 
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-import org.springframework.context.annotation.Bean
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -30,10 +26,10 @@ abstract class BaseIntegrationTest {
         @ServiceConnection
         @org.testcontainers.junit.jupiter.Container
         private val kafkaContainer =
-            KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka"))
+            KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.3.3"))
                 .withExposedPorts(9092)
                 .withExposedPorts(9093)
-                .withReuse(true)
+                .withReuse(false)
 
         @JvmStatic
         @DynamicPropertySource
@@ -49,7 +45,7 @@ abstract class BaseIntegrationTest {
 }
 
 
-fun awaitUntilAssserted(fn: () -> Unit) {
+fun awaitUntilAsserted(fn: () -> Unit) {
     Awaitility.await().pollInSameThread().atMost(Duration.ofSeconds(15)).untilAsserted { fn() }
 }
 

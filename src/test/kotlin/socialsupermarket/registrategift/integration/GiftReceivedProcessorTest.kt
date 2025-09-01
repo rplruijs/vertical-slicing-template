@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.kafka.core.KafkaTemplate
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.StreamAssertions
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.events.GiftRegisteredEvent
 import socialsupermarket.registrategift.GiftReceivedEvent
@@ -21,7 +21,7 @@ class GiftReceivedProcessorTest : BaseIntegrationTest() {
     @Test
     fun `gift imported from funding processor`() {
 
-            awaitUntilAssserted { kafkaTemplate.executeInTransaction {
+            awaitUntilAsserted { kafkaTemplate.executeInTransaction {
                 it.send("gift-received", GiftReceivedEvent(100.0)).get()
             }
                 val expectedInternalEvent = GiftRegisteredEvent(DEFAULT_FUNDING_ID, 100.0)

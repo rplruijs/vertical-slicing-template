@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.TestPropertySource
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.StreamAssertions
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.contribution.StartContributionYearCommand
 import socialsupermarket.events.ContributionYearClosedEvent
 import java.time.LocalDate
@@ -34,7 +34,7 @@ class CloseContributionYearProcessorTest : BaseIntegrationTest() {
         )
         commandGateway.sendAndWait<Any>(command)
 
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             streamAssertions.assertEvent(CONTRIBUTION_ID) {it is ContributionYearClosedEvent }
         }
     }

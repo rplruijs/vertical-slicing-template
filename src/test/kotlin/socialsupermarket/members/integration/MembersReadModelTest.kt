@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.junit.jupiter.api.Test
 import socialsupermarket.common.support.BaseIntegrationTest
-import socialsupermarket.common.support.awaitUntilAssserted
+import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.member.ImportMemberCommand
 import socialsupermarket.members.AllMembersQuery
 import socialsupermarket.members.GetMemberQuery
@@ -59,7 +59,7 @@ class MembersReadModelTest : BaseIntegrationTest() {
     fun `get all members`() {
         // WHEN-THEN (member already imported in setup)
         val expectedReadModel = MembersReadModel(listOf(createExpectedMember()))
-        awaitUntilAssserted {
+        awaitUntilAsserted {
 
             val actualReadModel = queryGateway.query(AllMembersQuery(), MembersReadModel::class.java)
 
@@ -73,7 +73,7 @@ class MembersReadModelTest : BaseIntegrationTest() {
     fun `get member`() {
         // WHEN-THEN (member already imported in setup)
         val expectedMember = createExpectedMember()
-        awaitUntilAssserted {
+        awaitUntilAsserted {
             val member = queryGateway.query(GetMemberQuery(testMemberId), MemberReadModelEntity::class.java).get()
             assertThat(member).isEqualTo(expectedMember)
         }
