@@ -1,4 +1,4 @@
-package socialsupermarket.handleapproval.integration
+package socialsupermarket.handleapproval
 
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.junit.jupiter.api.Test
