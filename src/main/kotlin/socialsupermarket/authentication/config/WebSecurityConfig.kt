@@ -33,6 +33,12 @@ class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFi
             // Enable CSRF protection with cookie-based token repository
             .csrf { csrf ->
                 csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .ignoringRequestMatchers(
+                        AntPathRequestMatcher("/fake/**", "POST"),
+                        AntPathRequestMatcher("/registration/register", "POST"),
+                        AntPathRequestMatcher("/authentication/login", "POST")
+
+                    )
             }
 
             // Use stateless session management for JWT
@@ -59,7 +65,8 @@ class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFi
                         AntPathRequestMatcher("/js/**"),
                         AntPathRequestMatcher("/images/**"),
                         AntPathRequestMatcher("/webjars/**"),
-                        AntPathRequestMatcher("/error")
+                        AntPathRequestMatcher("/error"),
+                        AntPathRequestMatcher("/fake/external/gift-received-event")
                     ).permitAll()
                     // Protect personal-landings-page
                     .requestMatchers(AntPathRequestMatcher("/personal-landings-page")).authenticated()

@@ -24,19 +24,37 @@
                 <!-- Person's Details -->
                 <div>
                     <div class="space-y-2">
-                        <label for="nomineeName" class="block text-sm font-semibold text-gray-700">
-                            Person's Name *
+                        <label for="memberSearch" class="block text-sm font-semibold text-gray-700">
+                            Select member
                         </label>
                         <input
                                 type="text"
-                                id="nomineeName"
-                                name="nomineeName"
+                                id="memberSearch"
+                                name="memberName"
+                                hx-get="/members/search"
+                                hx-trigger="keyup changed delay:300ms"
+                                hx-target="#suggestions"
                                 required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all placeholder-gray-400"
                                 placeholder="Enter name"
-                        >
+                                autocomplete="off"/>
+
+
+                        <!-- Hidden input that actually holds the selected ID -->
+                        <input type="hidden" id="memberId" name="memberId"/>
+
+                        <div id="suggestions" class="mt-2 space-y-1 bg-white border border-gray-200 rounded-xl shadow-sm p-1"></div>
                     </div>
                 </div>
+
+
+                <script>
+                    function selectMember(id, fullName) {
+                        document.getElementById("memberSearch").value = fullName; // show name in field
+                        document.getElementById("memberId").value = id;           // store id in hidden field
+                        document.getElementById("suggestions").innerHTML = "";    // clear suggestions
+                    }
+                </script>
 
                 <!-- Relationship -->
                 <div class="space-y-2">

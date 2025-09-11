@@ -11,6 +11,6 @@ import socialsupermarket.fundingbalance.CurrentBalanceReadModel
     @QueryHandler
     fun handle(query: CurrentBalanceQuery): CurrentBalanceReadModel {
         val piggyBank = repository.getSingleInstance()!!
-        return CurrentBalanceReadModel(piggyBank.currentBalance)
+        return CurrentBalanceReadModel(piggyBank.currentBalance, piggyBank.pendingGiftAmount)
     }
 }

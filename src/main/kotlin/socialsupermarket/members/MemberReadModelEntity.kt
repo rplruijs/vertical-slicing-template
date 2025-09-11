@@ -8,7 +8,9 @@ import java.time.LocalDate
 import java.util.UUID
 
 class AllMembersQuery()
+class AllMembersSearchQuery(val searchString: String, val excludeMail: String?)
 data class GetMemberQuery(val memberId: UUID)
+data class GetMemberWithEmail(val email: String)
 data class IsEmailAvailableQuery(val email: String)
 
 

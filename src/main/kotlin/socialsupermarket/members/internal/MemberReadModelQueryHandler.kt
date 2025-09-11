@@ -7,11 +7,14 @@ import org.axonframework.queryhandling.QueryUpdateEmitter
 import org.springframework.stereotype.Component
 import socialsupermarket.events.MemberImportedEvent
 import socialsupermarket.members.AllMembersQuery
+import socialsupermarket.members.AllMembersSearchQuery
 import socialsupermarket.members.GetMemberQuery
+import socialsupermarket.members.GetMemberWithEmail
 import socialsupermarket.members.IsEmailAvailableQuery
 import socialsupermarket.members.MemberReadModelEntity
 import socialsupermarket.members.MembersReadModel
 import java.util.concurrent.ConcurrentLinkedDeque
+import kotlin.String
 
 @Component
 @ProcessingGroup("members")
@@ -26,6 +29,22 @@ class MemberReadModelQueryHandler(val repository: MemberReadModelRepository) {
         set.addAll(limitedDeque)
         return MembersReadModel(set.toList())
     }
+
+
+    @QueryHandler
+    fun handle(query: AllMembersSearchQuery) : MembersReadModel {
+        val term = query.searchString.trim()
+        if (term.isEmpty()) {
+            return MembersReadModel(listOf())
+        }
+        return MembersReadModel(repository.searchByName(term, query.excludeMail))
+    }
+
+    @QueryHandler
+    fun handle(query: GetMemberWithEmail) : MemberReadModelEntity? {
+        return repository.findByEmail(query.email)
+    }
+
 
     @QueryHandler
     fun handle(query: IsEmailAvailableQuery): Boolean {

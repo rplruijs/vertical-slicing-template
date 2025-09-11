@@ -1,22 +1,29 @@
 package socialsupermarket.fundingbalance.internal
 
+import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
+import org.axonframework.queryhandling.QueryUpdateEmitter
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Component
 import socialsupermarket.events.GiftRegisteredEvent
 import socialsupermarket.events.SupportApprovedEvent
+import socialsupermarket.events.SupportWaitForFundingEvent
+import socialsupermarket.fundingbalance.CurrentBalanceQuery
+import socialsupermarket.fundingbalance.CurrentBalanceReadModel
 import socialsupermarket.fundingbalance.PiggyBankReadModelEntity
 import java.time.LocalDateTime
 
-interface PiggyBankReadModelRepository: JpaRepository<PiggyBankReadModelEntity, String> {
+interface PiggyBankReadModelRepository: JpaRepository<PiggyBankReadModelEntity, Long> {
 
     @Query("SELECT e FROM PiggyBankReadModelEntity e WHERE e.id = 1")
     fun getSingleInstance(): PiggyBankReadModelEntity?
 }
 
+@ProcessingGroup("funding-balance")
 @Component
-class PiggyBankReadModelProjector(val repository: PiggyBankReadModelRepository) {
+class PiggyBankReadModelProjector(val repository: PiggyBankReadModelRepository,
+                                        val queryUpdateEmitter: QueryUpdateEmitter) {
 
     @EventHandler
     fun on(event: SupportApprovedEvent) {
@@ -26,6 +33,17 @@ class PiggyBankReadModelProjector(val repository: PiggyBankReadModelRepository) 
         piggyBankReadModelEntity.lastModified = LocalDateTime.now()
 
         repository.save(piggyBankReadModelEntity)
+        emit(piggyBankReadModelEntity)
+    }
+
+    @EventHandler
+    fun on (event: SupportWaitForFundingEvent) {
+        val piggyBankReadModelEntity = repository.getSingleInstance()!!
+        piggyBankReadModelEntity.pendingGiftAmount += event.amount
+        piggyBankReadModelEntity.lastModified = LocalDateTime.now()
+
+        repository.save(piggyBankReadModelEntity)
+        emit(piggyBankReadModelEntity)
     }
 
     @EventHandler
@@ -36,5 +54,13 @@ class PiggyBankReadModelProjector(val repository: PiggyBankReadModelRepository) 
         piggyBankReadModelEntity.lastModified = LocalDateTime.now()
 
         repository.save(piggyBankReadModelEntity)
+        emit(piggyBankReadModelEntity)
+    }
+
+    private fun emit(piggyBankReadModelEntity: PiggyBankReadModelEntity) {
+        queryUpdateEmitter.emit(CurrentBalanceQuery::class.java,
+            {true},
+            CurrentBalanceReadModel(currentBalance = piggyBankReadModelEntity.currentBalance,
+                pendingGiftAmount = piggyBankReadModelEntity.pendingGiftAmount))
     }
 }

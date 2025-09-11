@@ -20,10 +20,11 @@ class PiggyBankReadModelEntity {
     @Column(name = "currentbalance")
     var currentBalance: Double = 0.0
 
+    @Column(name = "pendinggiftamount")
+    var pendingGiftAmount: Double = 0.0
+
     @Column(name = "lastmodificationdate")
     lateinit var lastModified: LocalDateTime
-
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -32,6 +33,7 @@ class PiggyBankReadModelEntity {
 
         if (id != other.id) return false
         if (currentBalance != other.currentBalance) return false
+        if (pendingGiftAmount != other.pendingGiftAmount) return false
         if (lastModified != other.lastModified) return false
 
         return true
@@ -40,9 +42,12 @@ class PiggyBankReadModelEntity {
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + currentBalance.hashCode()
+        result = 31 * result + pendingGiftAmount.hashCode()
         result = 31 * result + lastModified.hashCode()
         return result
     }
+
+
 }
 
-data class CurrentBalanceReadModel(val currentBalance: Double)
+data class CurrentBalanceReadModel(val currentBalance: Double, val pendingGiftAmount: Double)

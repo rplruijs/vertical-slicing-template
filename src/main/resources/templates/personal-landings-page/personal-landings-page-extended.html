@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Support - Social Supermarket</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -59,20 +61,10 @@
                     <h2 class="text-2xl font-bold text-gray-800">
                         Good morning John,
                     </h2>
-
                     <!-- Balances: Overall Gift Balance + Funding Balance -->
                     <div class="flex flex-col sm:flex-row gap-3">
-
-                        <!-- Funding Balance (can be 0 or negative) -->
-                        <div class="flex items-center gap-3">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-8 h-8 bg-gradient-to-br from-soft-blue to-blue-600 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm">🏦</span>
-                                </div>
-                                <!-- Example negative. Color logic: positive=green, zero=amber, negative=red -->
-                                <span class="text-2xl font-bold text-red-600">€-35.00</span>
-                            </div>
-                            <span class="text-sm text-gray-500">funding balance</span>
+                        <!-- Funding Balance  -->
+                        <div hx-ext="sse" sse-connect="/current-funding-balance" sse-swap="current-funding-balance-updated">
                         </div>
                     </div>
                 </div>
@@ -218,7 +210,7 @@
             <div class="lg:col-span-2 space-y-6">
 
                 <!-- Form 1: Financial Support Request -->
-                <div th:insert="~{financial-support-request-form :: formFragment(${form})}"></div>
+                <div th:insert="~{personal-landings-page/fragments/financial-support-request-form :: formFragment(${form})}"></div>
 
                 <!-- Form 3: Community Help (Optional) -->
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
