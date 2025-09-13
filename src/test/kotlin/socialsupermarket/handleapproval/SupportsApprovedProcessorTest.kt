@@ -9,7 +9,7 @@ import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
-import socialsupermarket.domain.contribution.SupportGivenEvent
+import socialsupermarket.events.SupportGivenEvent
 
 import java.util.UUID
 

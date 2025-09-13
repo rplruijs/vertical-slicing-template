@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import socialsupermarket.authentication.UserContextService
 import socialsupermarket.login.LoginForm
 import socialsupermarket.registration.RegistrationForm
+import socialsupermarket.requestsupport.FinancialSupportRequestForm
 
 
 @Controller
@@ -22,7 +23,7 @@ class RoutingController(private val userContextService: UserContextService) {
         // Add user email to the model
         val userEmail = userContextService.getCurrentUserEmail()
         model.addAttribute("userEmail", userEmail)
-        model.addAttribute("form", LoginForm())
+        model.addAttribute("requestForm", FinancialSupportRequestForm())
 
         return "personal-landings-page/personal-landings-page-extended"
     }

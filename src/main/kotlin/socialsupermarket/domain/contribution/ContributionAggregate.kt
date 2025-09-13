@@ -15,6 +15,7 @@ import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.commands.contribution.StartContributionYearCommand
 import socialsupermarket.events.ContributionYearClosedEvent
 import socialsupermarket.events.ContributionYearStartedEvent
+import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
 import java.util.UUID
 
@@ -80,12 +81,14 @@ class ContributionAggregate() {
 
     @CommandHandler
     fun handle(command: HandleApprovalCommand) {
-        AggregateLifecycle.apply(SupportGivenEvent(
-            contributionId = command.contributionId,
-            requestId = command.requestId,
-            amount = command.amount,
-            requestedFor = command.requestedFor
-        ))
+        AggregateLifecycle.apply(
+            SupportGivenEvent(
+                contributionId = command.contributionId,
+                requestId = command.requestId,
+                amount = command.amount,
+                requestedFor = command.requestedFor
+            )
+        )
     }
 
 

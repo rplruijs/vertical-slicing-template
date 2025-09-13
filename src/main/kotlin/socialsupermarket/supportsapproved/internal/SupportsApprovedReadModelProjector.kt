@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 import socialsupermarket.events.SupportApprovedEvent
+import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
 import socialsupermarket.supportsapproved.SupportApprovedReadModelEntity
 import java.util.UUID
@@ -38,6 +39,19 @@ class SupportsApprovedReadModelProjector(val repository: SupportsApprovedReadMod
 
             entity.amount = event.amount
             entity.status = "APPROVED"
+            repository.save(entity)
+        }
+    }
+
+
+    //TODO make async?
+
+    @EventHandler
+    fun on(event: SupportGivenEvent) {
+        val existingEntity = repository.findById(event.requestId)
+        if (existingEntity.isPresent) {
+            val entity = existingEntity.get()
+            entity.status = "GIVEN"
             repository.save(entity)
         }
     }

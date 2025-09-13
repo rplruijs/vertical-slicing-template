@@ -7,7 +7,7 @@ import socialsupermarket.common.Event
 import org.junit.jupiter.api.Test
 import socialsupermarket.domain.commands.contribution.HandleApprovalCommand
 import socialsupermarket.domain.contribution.ContributionAggregate
-import socialsupermarket.domain.contribution.SupportGivenEvent
+import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
 import java.util.UUID
 

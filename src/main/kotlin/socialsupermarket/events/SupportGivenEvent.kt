@@ -1,4 +1,4 @@
-package socialsupermarket.domain.contribution
+package socialsupermarket.events
 
 import socialsupermarket.common.Event
 import java.util.UUID

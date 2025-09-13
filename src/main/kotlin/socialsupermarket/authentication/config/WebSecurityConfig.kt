@@ -36,7 +36,8 @@ class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFi
                     .ignoringRequestMatchers(
                         AntPathRequestMatcher("/fake/**", "POST"),
                         AntPathRequestMatcher("/registration/register", "POST"),
-                        AntPathRequestMatcher("/authentication/login", "POST")
+                        AntPathRequestMatcher("/authentication/login", "POST"),
+                        AntPathRequestMatcher("/supportrequest/submit", "POST"),
 
                     )
             }

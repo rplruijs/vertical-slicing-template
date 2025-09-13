@@ -3,6 +3,7 @@ package socialsupermarket.supportrequests.internal
 import org.axonframework.eventhandling.EventHandler
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
+import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
 
 import socialsupermarket.supportrequests.SupportRequestReadModelEntity
@@ -22,4 +23,9 @@ class SupportRequestReadModelProjector(val repository: SupportRequestReadModelRe
             },
         )
     }
+
+    @EventHandler
+    fun on(event: SupportGivenEvent) = repository.deleteById(
+        event.requestId
+    )
 }

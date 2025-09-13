@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Size
+import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -16,14 +17,20 @@ import socialsupermarket.authentication.AuthenticationEntity
 import socialsupermarket.authentication.GetAuthenticationByEmailQuery
 import socialsupermarket.authentication.ValidateCredentialsQuery
 import socialsupermarket.authentication.jwt.JwtService
+import socialsupermarket.contributionlookup.ContributionLookUpReadModelEntity
+import socialsupermarket.contributionlookup.GetContribution
+import socialsupermarket.domain.commands.contribution.RequestSupportCommand
+import socialsupermarket.members.GetCurrentMember
+import socialsupermarket.members.MemberReadModelEntity
 import java.util.UUID
 
 data class FinancialSupportRequestForm(
-    val requestedFor: UUID,
-    val relationShip: String,
-    val month: String,
-    val amount: Double,
-    val notes: String
+
+    val requestedFor: UUID? = null,
+    val relationShip: String? = null,
+    val month: String? = null,
+    val amount: Double? = null,
+    val notes: String? = null
 )
 
 
@@ -31,10 +38,9 @@ data class FinancialSupportRequestForm(
 @RequestMapping("/supportrequest")
 class SupportRequestController(
     val queryGateway: QueryGateway,
-    val jwtService: JwtService
-) {
+    val commandGateway: CommandGateway) {
 
-    @PostMapping("/login")
+    @PostMapping("/submit")
     fun handleForm(
         @Valid @ModelAttribute("form") form: FinancialSupportRequestForm,
         bindingResult: BindingResult,
@@ -42,8 +48,26 @@ class SupportRequestController(
         request: HttpServletRequest,
         response: HttpServletResponse
     ): String? {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("form", form)
+            return "support-request-form"
+        }
 
-        val email = jwtService.getEmailOfUser(request)
+        val memberReadModelEntity = queryGateway.query(GetCurrentMember(), MemberReadModelEntity::class.java).join()
+        val contribution = queryGateway.query(GetContribution(memberReadModelEntity.memberId),
+            ContributionLookUpReadModelEntity::class.java).join()
+
+        commandGateway.sendAndWait<RequestSupportCommand>(RequestSupportCommand(
+            contributionId = contribution.contributionId,
+            requestId = UUID.randomUUID(),
+            requestedFor = form.requestedFor!!,
+            requestedBy = memberReadModelEntity.memberId,
+            relationShip = form.relationShip!!,
+            month = form.month!!,
+            amount = form.amount!!,
+            notes = form.notes!!
+        ))
+
         return null
     }
 }

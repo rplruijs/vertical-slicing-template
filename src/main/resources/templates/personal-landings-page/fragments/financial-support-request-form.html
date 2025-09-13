@@ -1,4 +1,4 @@
-<div id= "parent" th:fragment="formFragment(form)" class="bg-white rounded-3xl shadow-xl overflow-hidden">
+<div id= "parent" th:fragment="formFragment(requestForm)" class="bg-white rounded-3xl shadow-xl overflow-hidden">
     <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
         <button
                 type="button"
@@ -20,7 +20,13 @@
         </button>
 
         <div id="financialForm" class="hidden px-8 pb-8">
-            <form class="space-y-6" id="supportRequestForm">
+            <form class="space-y-6"
+                  id="supportRequestForm"
+                  hx-post="/supportrequest/submit"
+                  hx-target="#parent"
+                  th:object="${requestForm}">
+
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
                 <!-- Person's Details -->
                 <div>
                     <div class="space-y-2">
@@ -41,7 +47,10 @@
 
 
                         <!-- Hidden input that actually holds the selected ID -->
-                        <input type="hidden" id="memberId" name="memberId"/>
+                        <input type="hidden"
+                               id="requestedFor"
+                               th:field="*{requestedFor}"
+                               name="requestedFor"/>
 
                         <div id="suggestions" class="mt-2 space-y-1 bg-white border border-gray-200 rounded-xl shadow-sm p-1"></div>
                     </div>
@@ -51,7 +60,7 @@
                 <script>
                     function selectMember(id, fullName) {
                         document.getElementById("memberSearch").value = fullName; // show name in field
-                        document.getElementById("memberId").value = id;           // store id in hidden field
+                        document.getElementById("requestedFor").value = id;           // store id in hidden field
                         document.getElementById("suggestions").innerHTML = "";    // clear suggestions
                     }
                 </script>
@@ -62,8 +71,9 @@
                         Your Relationship to This Person *
                     </label>
                     <select
-                            id="relationship"
-                            name="relationship"
+                            id="relationShip"
+                            name="relationShip"
+                            th:field="*{relationShip}"
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all"
                     >
@@ -91,6 +101,7 @@
                                 min="0"
                                 max="100"
                                 value="50"
+                                th:field="*{amount}"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                                 oninput="updateAmountDisplay(this.value)"
                         >
@@ -112,6 +123,7 @@
                     <select
                             id="month"
                             name="month"
+                            th:field="*{month}"
                             required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all"
                     >
@@ -133,6 +145,7 @@
                     <textarea
                             id="notes"
                             name="notes"
+                            th:field="*{notes}"
                             rows="3"
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-nature-green focus:border-transparent transition-all placeholder-gray-400"
                             placeholder="Share any specific needs or circumstances..."

@@ -4,7 +4,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.eventhandling.EventHandler
 import org.springframework.stereotype.Component
 import socialsupermarket.domain.commands.member.IncreaseBalanceCommand
-import socialsupermarket.domain.contribution.SupportGivenEvent
+import socialsupermarket.events.SupportGivenEvent
 
 @Component
 class IncreaseBalanceProcessor(val commandGateway: CommandGateway) {
@@ -18,4 +18,6 @@ class IncreaseBalanceProcessor(val commandGateway: CommandGateway) {
             )
         )
     }
+
+
 }

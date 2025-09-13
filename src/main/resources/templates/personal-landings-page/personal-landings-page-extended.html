@@ -210,7 +210,7 @@
             <div class="lg:col-span-2 space-y-6">
 
                 <!-- Form 1: Financial Support Request -->
-                <div th:insert="~{personal-landings-page/fragments/financial-support-request-form :: formFragment(${form})}"></div>
+                <div th:insert="~{personal-landings-page/fragments/financial-support-request-form :: formFragment(${requestForm})}"></div>
 
                 <!-- Form 3: Community Help (Optional) -->
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -661,31 +661,7 @@
             }
         `;
     document.head.appendChild(style);        // Form submission handlers
-    document.getElementById('supportRequestForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const amount = document.getElementById('amount').value;
-        const month = document.getElementById('month').value;
-        const name = document.getElementById('nomineeName').value;
-        const relationship = document.getElementById('relationship').value;
 
-        if (!month || !name || !relationship) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        savedForms.financial = true;
-        savedForms.nomination = true; // Since we combined the forms
-        updateFinancialSummary();
-        updateNominationSummary();
-        updateSummaryVisibility();
-
-        // Show success message
-        const successMsg = document.createElement('div');
-        successMsg.className = 'fixed top-4 right-4 bg-nature-green text-white px-6 py-3 rounded-lg shadow-lg z-50';
-        successMsg.innerHTML = '✅ Support request saved!';
-        document.body.appendChild(successMsg);
-        setTimeout(() => successMsg.remove(), 3000);
-    });
 
     document.getElementById('communityHelpForm').addEventListener('submit', function(e) {
         e.preventDefault();
