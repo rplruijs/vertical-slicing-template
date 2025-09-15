@@ -14,11 +14,11 @@ import java.util.UUID
 class RequestSupportContributionAggregateTest {
 
     companion object {
-        val CONTRIBUTION_ID = UUID.randomUUID()
-        val REQUEST_ID = UUID.randomUUID()
-        val REQUEST_ID_2 = UUID.randomUUID()
-        val REQUESTED_BY = UUID.randomUUID()
-        val REQUESTED_FOR = UUID.randomUUID()
+        val CONTRIBUTION_ID: UUID = UUID.randomUUID()
+        val REQUEST_ID: UUID = UUID.randomUUID()
+        val REQUEST_ID_2: UUID = UUID.randomUUID()
+        val REQUESTED_BY: UUID = UUID.randomUUID()
+        val REQUESTED_FOR: UUID = UUID.randomUUID()
     }
 
     private lateinit var fixture: AggregateTestFixture<ContributionAggregate>
@@ -38,8 +38,8 @@ class RequestSupportContributionAggregateTest {
             val command = RequestSupportCommand(
                 contributionId = CONTRIBUTION_ID,
                 requestId = REQUEST_ID,
-                requestedBy = UUID.randomUUID(),
-                requestedFor = UUID.randomUUID(),
+                requestedBy = REQUESTED_BY,
+                requestedFor = REQUESTED_FOR,
                 relationShip = "Friends",
                 month = "August",
                 amount = 100.0,
@@ -52,8 +52,8 @@ class RequestSupportContributionAggregateTest {
             val event = SupportRequestedEvent(
                 contributionId = CONTRIBUTION_ID,
                 requestId = REQUEST_ID,
-                requestedBy = UUID.randomUUID(),
-                requestedFor = UUID.randomUUID(),
+                requestedBy = REQUESTED_BY,
+                requestedFor = REQUESTED_FOR,
                 relationShip = "Friends",
                 month = "August",
                 amount = 100.0,

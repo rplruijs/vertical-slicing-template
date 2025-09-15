@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.util.UUID
 
-data class GetApprovedSupportsQuery(val limit: Int)
+data class GetSupportsQuery(val limit: Int, val status: String)
 
 @Entity
 @Table(name = "supportsapproved")

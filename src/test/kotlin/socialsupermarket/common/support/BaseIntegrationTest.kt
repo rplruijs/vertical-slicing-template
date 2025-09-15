@@ -6,9 +6,11 @@ import org.axonframework.eventhandling.EventProcessor
 import org.axonframework.eventhandling.TrackingEventProcessor
 import org.flywaydb.core.Flyway
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.KafkaContainer
@@ -19,18 +21,8 @@ import java.time.Duration
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
+@DirtiesContext
 abstract class BaseIntegrationTest {
-
-
-    @Autowired
-    protected lateinit var flyway: Flyway
-
-    @org.junit.jupiter.api.BeforeEach
-    fun resetDatabase() {
-        flyway.clean()
-        flyway.migrate()
-    }
-
 
     companion object {
         @org.testcontainers.junit.jupiter.Container

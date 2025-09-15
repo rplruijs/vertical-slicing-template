@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
-import socialsupermarket.domain.commands.funding.AssessSupportRequestCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
-import socialsupermarket.supportsapproved.GetApprovedSupportsQuery
+import socialsupermarket.supportsapproved.GetSupportsQuery
 import socialsupermarket.supportsapproved.SupportApprovedReadModel
 import socialsupermarket.supportsapproved.SupportApprovedReadModelEntity
 import java.util.UUID
@@ -25,6 +24,7 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
         private val REQUESTED_BY = UUID.randomUUID()
         private val REQUESTED_FOR = UUID.randomUUID()
         private const val APPROVED_STATUS = "APPROVED"
+        private const val GIVEN_STATUS = "GIVEN"
         private const val RELATIONSHIP = "Friends"
         private const val MONTH = "August"
         private const val AMOUNT = 100.0
@@ -33,7 +33,7 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
     }
 
     @Test
-    fun `get approved supports`() {
+    fun `from approved to given supports when enough funding`() {
 
         // WHEN - Register Gift Command
         val registerGiftCommand = RegisterGiftCommand(FUNDING_ID, AMOUNT)
@@ -53,14 +53,6 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
         )
         commandGateway.sendAndWait<Any>(requestCommand)
 
-        // AND - Approve the support request
-        val approveCommand = AssessSupportRequestCommand(
-            fundingId = FUNDING_ID,
-            requestId = REQUEST_ID,
-            amount = AMOUNT
-        )
-        commandGateway.sendAndWait<Any>(approveCommand)
-
         // THEN - Verify the approved support is in the read model
         val expectedEntity = SupportApprovedReadModelEntity().apply {
             requestId = REQUEST_ID
@@ -69,12 +61,12 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
             requestedFor = REQUESTED_FOR
             month = MONTH
             amount = AMOUNT
-            status = APPROVED_STATUS
+            status = GIVEN_STATUS
         }
         val expectedReadModel = SupportApprovedReadModel(listOf(expectedEntity))
 
         awaitUntilAsserted {
-            val actualReadModel = queryGateway.query(GetApprovedSupportsQuery(1), SupportApprovedReadModel::class.java)
+            val actualReadModel = queryGateway.query(GetSupportsQuery(1, GIVEN_STATUS), SupportApprovedReadModel::class.java)
 
             assertThat(actualReadModel.get()).isNotNull
             assertThat(actualReadModel.get()).isEqualTo(expectedReadModel)

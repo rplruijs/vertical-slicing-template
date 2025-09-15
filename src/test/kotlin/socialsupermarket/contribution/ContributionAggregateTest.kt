@@ -17,6 +17,7 @@ class ContributionAggregateTest {
         private val REQUEST_ID = UUID.randomUUID()
         private val REQUESTED_BY = UUID.randomUUID()
         private val REQUESTED_FOR = UUID.randomUUID()
+        private val CONTRIBUTION_ID = UUID.randomUUID()
         private const val RELATIONSHIP = "Friends"
         private const val MONTH = "August"
         private const val AMOUNT = 100.0
@@ -34,7 +35,7 @@ class ContributionAggregateTest {
 
         // WHEN
         val command = RequestSupportCommand(
-            contributionId = REQUESTED_BY ,
+            contributionId = CONTRIBUTION_ID ,
             requestId = REQUEST_ID,
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
@@ -46,7 +47,7 @@ class ContributionAggregateTest {
 
         // THEN
         val expectedEvent = SupportRequestedEvent(
-            contributionId = REQUEST_ID,
+            contributionId = CONTRIBUTION_ID,
             requestId = REQUEST_ID,
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
@@ -61,6 +62,4 @@ class ContributionAggregateTest {
             .expectSuccessfulHandlerExecution()
             .expectEvents(expectedEvent)
     }
-
-
 }

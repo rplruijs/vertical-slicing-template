@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import socialsupermarket.common.Processor
 import socialsupermarket.domain.commands.contribution.HandleApprovalCommand
-import socialsupermarket.supportsapproved.GetApprovedSupportsQuery
+import socialsupermarket.supportsapproved.GetSupportsQuery
 import socialsupermarket.supportsapproved.SupportApprovedReadModel
 
 @Component
@@ -21,7 +21,7 @@ class HandleApprovalProcessor : Processor {
 
     @Scheduled(cron = "*/1 * * * * *")
     fun handleApproveMonthlySupportItem() {
-        queryGateway.query(GetApprovedSupportsQuery(5), SupportApprovedReadModel::class.java)
+        queryGateway.query(GetSupportsQuery(5, "APPROVED"), SupportApprovedReadModel::class.java)
             .thenApply { model ->
                 model.data.forEach { commandGateway.send<HandleApprovalCommand>(
                     HandleApprovalCommand(

@@ -18,7 +18,6 @@ interface SupportsApprovedReadModelRepository: JpaRepository<SupportApprovedRead
 class SupportsApprovedReadModelProjector(val repository: SupportsApprovedReadModelRepository) {
     @EventHandler
     fun on(event: SupportRequestedEvent) {
-
         val entity = SupportApprovedReadModelEntity().apply {
             requestId = event.requestId
             contributionId = event.contributionId
@@ -28,7 +27,6 @@ class SupportsApprovedReadModelProjector(val repository: SupportsApprovedReadMod
             status = "REQUESTED"
         }
         repository.save(entity)
-
     }
 
     @EventHandler
@@ -42,9 +40,6 @@ class SupportsApprovedReadModelProjector(val repository: SupportsApprovedReadMod
             repository.save(entity)
         }
     }
-
-
-    //TODO make async?
 
     @EventHandler
     fun on(event: SupportGivenEvent) {

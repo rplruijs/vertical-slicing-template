@@ -6,7 +6,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.util.UUID
 
-data class GetSupportRequestQuery(val requestId: UUID)
 class GetAllSupportRequests()
 
 @Entity
