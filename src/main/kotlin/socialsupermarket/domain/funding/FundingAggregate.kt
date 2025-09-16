@@ -14,6 +14,7 @@ import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.events.GiftRegisteredEvent
 import socialsupermarket.events.SupportApprovedEvent
 import socialsupermarket.events.SupportWaitForFundingEvent
+import java.time.LocalDate
 import java.util.UUID
 
 @Aggregate
@@ -43,6 +44,7 @@ class FundingAggregate() {
                         fundingId = command.fundingId,
                         requestId = command.requestId,
                         amount = command.amount,
+                        approvalDate = command.assessDate,
                     )
                 )
             }
@@ -51,7 +53,8 @@ class FundingAggregate() {
                     SupportWaitForFundingEvent(
                         fundingId = command.fundingId,
                         requestId = command.requestId,
-                        amount = command.amount
+                        amount = command.amount,
+                        atWaitingList = LocalDate.of(2024, 12, 31)
                     )
                 )
             }
@@ -62,12 +65,14 @@ class FundingAggregate() {
                         fundingId = command.fundingId,
                         requestId = command.requestId,
                         amount = command.amount - amountAwaitingFunding,
+                        approvalDate = command.assessDate,
                     )
                 ).andThenApply {
                     SupportWaitForFundingEvent(
                         fundingId = command.fundingId,
                         requestId = command.requestId,
-                        amount = amountAwaitingFunding
+                        amount = amountAwaitingFunding,
+                        atWaitingList = LocalDate.of(2024, 12, 31)
                     )
                 }
             }

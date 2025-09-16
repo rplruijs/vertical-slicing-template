@@ -11,6 +11,7 @@ import socialsupermarket.domain.funding.FundingAggregate
 import socialsupermarket.events.GiftRegisteredEvent
 import socialsupermarket.events.SupportApprovedEvent
 import socialsupermarket.events.SupportWaitForFundingEvent
+import java.time.LocalDate
 import java.util.UUID
 
 class AssessSupportRequestFundingAggregateTest {
@@ -38,14 +39,17 @@ class AssessSupportRequestFundingAggregateTest {
             val command = AssessSupportRequestCommand(
                 fundingId = DEFAULT_FUNDING_ID,
                 amount =  100.0,
-                requestId = REQUEST_ID
+                requestId = REQUEST_ID,
+                assessDate = LocalDate.of(2024, 12, 31)
             )
 
             // THEN
             val expectedEvents = mutableListOf<Event>()
-            val supportApprovedEvent = SupportApprovedEvent(fundingId = DEFAULT_FUNDING_ID,
+            val supportApprovedEvent = SupportApprovedEvent(
+                fundingId = DEFAULT_FUNDING_ID,
                 requestId = REQUEST_ID,
-                amount = 100.0
+                amount = 100.0,
+                approvalDate = LocalDate.of(2024, 12, 31)
             )
             expectedEvents.add(supportApprovedEvent)
 
@@ -68,7 +72,8 @@ class AssessSupportRequestFundingAggregateTest {
         val command = AssessSupportRequestCommand(
             fundingId = DEFAULT_FUNDING_ID,
             amount =  100.0,
-            requestId = REQUEST_ID
+            requestId = REQUEST_ID,
+            assessDate = LocalDate.of(2024, 12, 31)
         )
 
         // THEN
@@ -76,13 +81,15 @@ class AssessSupportRequestFundingAggregateTest {
         val supportApprovedEvent = SupportApprovedEvent(
             fundingId = DEFAULT_FUNDING_ID,
             requestId = REQUEST_ID,
-            amount = 80.0
+            amount = 80.0,
+            approvalDate = LocalDate.of(2024, 12, 31)
         )
 
         val supportWaitingForFundingEvent = SupportWaitForFundingEvent(
             fundingId = DEFAULT_FUNDING_ID,
             requestId = REQUEST_ID,
-            amount = 20.0
+            amount = 20.0,
+            atWaitingList = LocalDate.of(2024, 12, 31)
         )
         expectedEvents.add(supportApprovedEvent)
         expectedEvents.add(supportWaitingForFundingEvent)
@@ -106,7 +113,8 @@ class AssessSupportRequestFundingAggregateTest {
         val command = AssessSupportRequestCommand(
             fundingId = DEFAULT_FUNDING_ID,
             amount =  100.0,
-            requestId = REQUEST_ID
+            requestId = REQUEST_ID,
+            assessDate = LocalDate.of(2024, 12, 31)
         )
 
         // THEN
@@ -115,7 +123,8 @@ class AssessSupportRequestFundingAggregateTest {
         val supportWaitingForFundingEvent = SupportWaitForFundingEvent(
             fundingId = DEFAULT_FUNDING_ID,
             requestId = REQUEST_ID,
-            amount = 100.0
+            amount = 100.0,
+            atWaitingList = LocalDate.of(2024, 12, 31)
         )
 
         expectedEvents.add(supportWaitingForFundingEvent)
