@@ -9,6 +9,7 @@ import socialsupermarket.common.Event
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.contribution.ContributionAggregate
 import socialsupermarket.events.SupportRequestedEvent
+import java.time.LocalDate
 import java.util.UUID
 
 class RequestSupportContributionAggregateTest {
@@ -46,6 +47,7 @@ class RequestSupportContributionAggregateTest {
                 amount = 100.0,
                 notes = "He needs a surgery",
                 requestedForName = REQUESTED_FOR_NAME,
+                requestDate = LocalDate.of(2024, 12, 31),
             )
 
             // THEN
@@ -61,6 +63,7 @@ class RequestSupportContributionAggregateTest {
                 month = "August",
                 notes = "He needs a surgery",
                 requestedForName = REQUESTED_FOR_NAME,
+                requestDate = LocalDate.of(2024, 12, 31),
             )
 
             expectedEvents.add(event)
@@ -87,6 +90,7 @@ class RequestSupportContributionAggregateTest {
             month = "August",
             notes = "He needs a surgery",
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
         events.add(event)
 
@@ -101,6 +105,7 @@ class RequestSupportContributionAggregateTest {
             amount = 20.0,
             notes = "She deserves a holiday",
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
 
         fixture
@@ -125,6 +130,7 @@ class RequestSupportContributionAggregateTest {
             month = "August",
             notes = "He needs a surgery",
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
         events.add(event)
 
@@ -139,6 +145,7 @@ class RequestSupportContributionAggregateTest {
             amount = 80.0,
             notes = "She deserves a holiday",
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
 
         //THEN
@@ -154,6 +161,7 @@ class RequestSupportContributionAggregateTest {
             month = "September",
             notes = "She deserves a holiday",
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
         expectedEvents.add(expectedEvent)
 

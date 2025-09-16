@@ -9,6 +9,7 @@ import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.requestsupport.RequestSupportContributionAggregateTest.Companion.REQUESTED_FOR_NAME
+import java.time.LocalDate
 import java.util.UUID
 
 import kotlin.jvm.java
@@ -40,7 +41,8 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
             month = MONTH,
             amount = AMOUNT,
             notes = NOTES,
-            requestedForName = REQUESTED_FOR_NAME
+            requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31)
         )
         commandGateway.sendAndWait<Any>(command)
 

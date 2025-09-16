@@ -9,6 +9,7 @@ import socialsupermarket.domain.commands.contribution.HandleApprovalCommand
 import socialsupermarket.domain.contribution.ContributionAggregate
 import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
+import java.time.LocalDate
 import java.util.UUID
 
 class HandleApprovalContributionAggregateTest {
@@ -39,7 +40,8 @@ class HandleApprovalContributionAggregateTest {
             amount = amount,
             month = "August",
             notes = "He needs a surgery",
-            requestedForName = "Alice Sly"
+            requestedForName = "Alice Sly",
+            requestDate = LocalDate.of(2024, 12, 31)
         ))
 
         //WHEN

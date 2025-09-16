@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.contribution.ContributionAggregate
 import socialsupermarket.events.SupportRequestedEvent
+import java.time.LocalDate
 import java.util.UUID
 
 class ContributionAggregateTest {
@@ -40,11 +41,12 @@ class ContributionAggregateTest {
             requestId = REQUEST_ID,
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
-            requestedForName = REQUESTED_FOR_NAME,
             relationShip = RELATIONSHIP,
             month = MONTH,
             amount = AMOUNT,
             notes = NOTES,
+            requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
 
         // THEN
@@ -58,6 +60,7 @@ class ContributionAggregateTest {
             month = MONTH,
             notes = NOTES,
             requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31),
         )
 
         fixture.givenNoPriorActivity()

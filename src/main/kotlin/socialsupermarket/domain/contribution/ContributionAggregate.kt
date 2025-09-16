@@ -17,6 +17,7 @@ import socialsupermarket.events.ContributionYearClosedEvent
 import socialsupermarket.events.ContributionYearStartedEvent
 import socialsupermarket.events.SupportGivenEvent
 import socialsupermarket.events.SupportRequestedEvent
+import java.time.LocalDate
 import java.util.UUID
 
 @Aggregate
@@ -61,6 +62,7 @@ class ContributionAggregate() {
             command.month,
             command.notes,
             command.requestedForName,
+            command.requestDate,
         ))
     }
 

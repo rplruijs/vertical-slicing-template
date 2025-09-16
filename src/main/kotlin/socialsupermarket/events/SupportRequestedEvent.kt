@@ -1,6 +1,7 @@
 package socialsupermarket.events
 
 import socialsupermarket.common.Event
+import java.time.LocalDate
 import java.util.UUID
 
 data class SupportRequestedEvent(
@@ -13,4 +14,5 @@ data class SupportRequestedEvent(
     val month: String,
     val notes: String,
     val requestedForName: String,
+    val requestDate: LocalDate,
 ): Event

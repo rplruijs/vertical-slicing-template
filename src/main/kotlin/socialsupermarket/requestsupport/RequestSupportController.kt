@@ -16,6 +16,7 @@ import socialsupermarket.contributionlookup.GetContribution
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.members.GetCurrentMember
 import socialsupermarket.members.MemberReadModelEntity
+import java.time.LocalDate
 import java.util.UUID
 
 data class FinancialSupportRequestForm(
@@ -54,13 +55,14 @@ class SupportRequestController(
         commandGateway.sendAndWait<RequestSupportCommand>(RequestSupportCommand(
             contributionId = contribution.contributionId,
             requestId = UUID.randomUUID(),
-            requestedFor = form.requestedFor!!,
-            requestedForName = memberReadModelEntity.fullName(),
             requestedBy = memberReadModelEntity.memberId,
+            requestedFor = form.requestedFor!!,
             relationShip = form.relationShip!!,
             month = form.month!!,
             amount = form.amount!!,
-            notes = form.notes!!
+            notes = form.notes!!,
+            requestedForName = memberReadModelEntity.fullName(),
+            requestDate = LocalDate.now()
         ))
 
         return null

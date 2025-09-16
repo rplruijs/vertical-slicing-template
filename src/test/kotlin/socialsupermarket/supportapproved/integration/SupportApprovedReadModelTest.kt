@@ -12,6 +12,7 @@ import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.supportsapproved.GetSupportsQuery
 import socialsupermarket.supportsapproved.SupportApprovedReadModel
 import socialsupermarket.supportsapproved.SupportApprovedReadModelEntity
+import java.time.LocalDate
 import java.util.UUID
 
 class SupportApprovedReadModelTest : BaseIntegrationTest() {
@@ -52,7 +53,8 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
             month = MONTH,
             amount = AMOUNT,
             notes = NOTES,
-            requestedForName = REQUESTED_FOR_NAME
+            requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31)
         )
         commandGateway.sendAndWait<Any>(requestCommand)
 

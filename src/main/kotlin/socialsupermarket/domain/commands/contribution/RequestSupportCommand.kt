@@ -2,6 +2,7 @@ package socialsupermarket.domain.commands.contribution
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 import socialsupermarket.common.Command
+import java.time.LocalDate
 import java.util.UUID
 
 data class RequestSupportCommand(
@@ -13,5 +14,6 @@ data class RequestSupportCommand(
     val month: String,
     val amount: Double,
     val notes: String,
-    val requestedForName: String
+    val requestedForName: String,
+    val requestDate: LocalDate
 ): Command

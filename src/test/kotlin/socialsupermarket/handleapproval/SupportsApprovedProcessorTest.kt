@@ -10,6 +10,7 @@ import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.events.SupportGivenEvent
+import java.time.LocalDate
 
 import java.util.UUID
 
@@ -48,7 +49,8 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
             month = MONTH,
             amount = AMOUNT,
             notes = NOTES,
-            requestedForName = REQUESTED_FOR_NAME
+            requestedForName = REQUESTED_FOR_NAME,
+            requestDate = LocalDate.of(2024, 12, 31)
         )
 
         commandGateway.sendAndWait<Any>(requestSupportCommand)
