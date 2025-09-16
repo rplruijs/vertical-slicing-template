@@ -36,9 +36,10 @@ class HandleApprovalContributionAggregateTest {
             requestedBy = requestedBy,
             requestedFor = requestedFor,
             relationShip = "Friends",
-            month = "August",
             amount = amount,
-            notes = "He needs a surgery"
+            month = "August",
+            notes = "He needs a surgery",
+            requestedForName = "Alice Sly"
         ))
 
         //WHEN

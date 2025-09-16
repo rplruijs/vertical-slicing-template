@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
+import socialsupermarket.requestsupport.RequestSupportContributionAggregateTest.Companion.REQUESTED_FOR_NAME
 import java.util.UUID
 
 import kotlin.jvm.java
@@ -38,7 +39,8 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
             relationShip = RELATIONSHIP,
             month = MONTH,
             amount = AMOUNT,
-            notes = NOTES
+            notes = NOTES,
+            requestedForName = REQUESTED_FOR_NAME
         )
         commandGateway.sendAndWait<Any>(command)
 

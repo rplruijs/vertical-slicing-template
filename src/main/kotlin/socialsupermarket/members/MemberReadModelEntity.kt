@@ -35,6 +35,8 @@ class MemberReadModelEntity {
     @Column(name = "birth_date")
     lateinit var birthDate: LocalDate
 
+    fun fullName() = "$firstName $lastName"
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

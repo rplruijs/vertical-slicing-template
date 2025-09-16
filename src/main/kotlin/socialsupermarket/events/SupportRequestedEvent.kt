@@ -12,4 +12,5 @@ data class SupportRequestedEvent(
     val amount: Double,
     val month: String,
     val notes: String,
+    val requestedForName: String,
 ): Event

@@ -3,8 +3,6 @@ package socialsupermarket.requestsupport
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
-import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.Size
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.stereotype.Controller
@@ -13,10 +11,6 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import socialsupermarket.authentication.AuthenticationEntity
-import socialsupermarket.authentication.GetAuthenticationByEmailQuery
-import socialsupermarket.authentication.ValidateCredentialsQuery
-import socialsupermarket.authentication.jwt.JwtService
 import socialsupermarket.contributionlookup.ContributionLookUpReadModelEntity
 import socialsupermarket.contributionlookup.GetContribution
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
@@ -61,6 +55,7 @@ class SupportRequestController(
             contributionId = contribution.contributionId,
             requestId = UUID.randomUUID(),
             requestedFor = form.requestedFor!!,
+            requestedForName = memberReadModelEntity.fullName(),
             requestedBy = memberReadModelEntity.memberId,
             relationShip = form.relationShip!!,
             month = form.month!!,

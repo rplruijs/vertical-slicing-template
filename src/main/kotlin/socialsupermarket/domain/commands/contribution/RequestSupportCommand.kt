@@ -12,5 +12,6 @@ data class RequestSupportCommand(
     val relationShip: String,
     val month: String,
     val amount: Double,
-    val notes: String
+    val notes: String,
+    val requestedForName: String
 ): Command

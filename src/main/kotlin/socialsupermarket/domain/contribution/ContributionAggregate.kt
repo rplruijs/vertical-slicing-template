@@ -60,6 +60,7 @@ class ContributionAggregate() {
             command.amount,
             command.month,
             command.notes,
+            command.requestedForName,
         ))
     }
 

@@ -15,6 +15,7 @@ import socialsupermarket.supportsapproved.SupportApprovedReadModelEntity
 import java.util.UUID
 
 class SupportApprovedReadModelTest : BaseIntegrationTest() {
+
     @Autowired private lateinit var commandGateway: CommandGateway
     @Autowired private lateinit var queryGateway: QueryGateway
 
@@ -23,6 +24,7 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
         private val CONTRIBUTION_ID = UUID.randomUUID()
         private val REQUESTED_BY = UUID.randomUUID()
         private val REQUESTED_FOR = UUID.randomUUID()
+        private const val REQUESTED_FOR_NAME = "Alice Sly"
         private const val APPROVED_STATUS = "APPROVED"
         private const val GIVEN_STATUS = "GIVEN"
         private const val RELATIONSHIP = "Friends"
@@ -42,14 +44,15 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
 
         //AND - Request Monthly Support Command
         val requestCommand = RequestSupportCommand(
-            requestId = REQUEST_ID,
             contributionId = CONTRIBUTION_ID,
+            requestId = REQUEST_ID,
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
             relationShip = RELATIONSHIP,
             month = MONTH,
             amount = AMOUNT,
-            notes = NOTES
+            notes = NOTES,
+            requestedForName = REQUESTED_FOR_NAME
         )
         commandGateway.sendAndWait<Any>(requestCommand)
 

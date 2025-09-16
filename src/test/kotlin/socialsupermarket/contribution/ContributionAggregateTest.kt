@@ -17,6 +17,7 @@ class ContributionAggregateTest {
         private val REQUEST_ID = UUID.randomUUID()
         private val REQUESTED_BY = UUID.randomUUID()
         private val REQUESTED_FOR = UUID.randomUUID()
+        private const val REQUESTED_FOR_NAME = "Helen Hofstede"
         private val CONTRIBUTION_ID = UUID.randomUUID()
         private const val RELATIONSHIP = "Friends"
         private const val MONTH = "August"
@@ -35,14 +36,15 @@ class ContributionAggregateTest {
 
         // WHEN
         val command = RequestSupportCommand(
-            contributionId = CONTRIBUTION_ID ,
+            contributionId = CONTRIBUTION_ID,
             requestId = REQUEST_ID,
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
+            requestedForName = REQUESTED_FOR_NAME,
             relationShip = RELATIONSHIP,
             month = MONTH,
             amount = AMOUNT,
-            notes = NOTES
+            notes = NOTES,
         )
 
         // THEN
@@ -55,6 +57,7 @@ class ContributionAggregateTest {
             amount = AMOUNT,
             month = MONTH,
             notes = NOTES,
+            requestedForName = REQUESTED_FOR_NAME,
         )
 
         fixture.givenNoPriorActivity()

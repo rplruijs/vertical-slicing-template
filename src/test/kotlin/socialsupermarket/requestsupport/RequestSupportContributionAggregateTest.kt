@@ -19,6 +19,7 @@ class RequestSupportContributionAggregateTest {
         val REQUEST_ID_2: UUID = UUID.randomUUID()
         val REQUESTED_BY: UUID = UUID.randomUUID()
         val REQUESTED_FOR: UUID = UUID.randomUUID()
+        val REQUESTED_FOR_NAME: String = "Alice Sly"
     }
 
     private lateinit var fixture: AggregateTestFixture<ContributionAggregate>
@@ -43,7 +44,8 @@ class RequestSupportContributionAggregateTest {
                 relationShip = "Friends",
                 month = "August",
                 amount = 100.0,
-                notes = "He needs a surgery"
+                notes = "He needs a surgery",
+                requestedForName = REQUESTED_FOR_NAME,
             )
 
             // THEN
@@ -55,9 +57,10 @@ class RequestSupportContributionAggregateTest {
                 requestedBy = REQUESTED_BY,
                 requestedFor = REQUESTED_FOR,
                 relationShip = "Friends",
-                month = "August",
                 amount = 100.0,
-                notes = "He needs a surgery"
+                month = "August",
+                notes = "He needs a surgery",
+                requestedForName = REQUESTED_FOR_NAME,
             )
 
             expectedEvents.add(event)
@@ -80,9 +83,10 @@ class RequestSupportContributionAggregateTest {
             requestedBy = REQUESTED_BY,
             requestedFor = UUID.randomUUID(),
             relationShip = "Friends",
-            month = "August",
             amount = 100.0,
-            notes = "He needs a surgery"
+            month = "August",
+            notes = "He needs a surgery",
+            requestedForName = REQUESTED_FOR_NAME,
         )
         events.add(event)
 
@@ -95,7 +99,8 @@ class RequestSupportContributionAggregateTest {
             relationShip = "Neighbour",
             month = "August",
             amount = 20.0,
-            notes = "She deserves a holiday"
+            notes = "She deserves a holiday",
+            requestedForName = REQUESTED_FOR_NAME,
         )
 
         fixture
@@ -116,9 +121,10 @@ class RequestSupportContributionAggregateTest {
             requestedBy = REQUESTED_BY,
             requestedFor = UUID.randomUUID(),
             relationShip = "Friends",
-            month = "August",
             amount = 100.0,
-            notes = "He needs a surgery"
+            month = "August",
+            notes = "He needs a surgery",
+            requestedForName = REQUESTED_FOR_NAME,
         )
         events.add(event)
 
@@ -131,7 +137,8 @@ class RequestSupportContributionAggregateTest {
             relationShip = "Neighbour",
             month = "September",
             amount = 80.0,
-            notes = "She deserves a holiday"
+            notes = "She deserves a holiday",
+            requestedForName = REQUESTED_FOR_NAME,
         )
 
         //THEN
@@ -143,9 +150,10 @@ class RequestSupportContributionAggregateTest {
             requestedBy = REQUESTED_BY,
             requestedFor = REQUESTED_FOR,
             relationShip = "Neighbour",
-            month = "September",
             amount = 80.0,
-            notes = "She deserves a holiday"
+            month = "September",
+            notes = "She deserves a holiday",
+            requestedForName = REQUESTED_FOR_NAME,
         )
         expectedEvents.add(expectedEvent)
 

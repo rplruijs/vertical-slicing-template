@@ -24,6 +24,7 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
         private val REQUEST_ID = UUID.randomUUID()
         private val REQUESTED_BY = UUID.randomUUID()
         private val REQUESTED_FOR = UUID.randomUUID()
+        private const val REQUESTED_FOR_NAME = "Alice Sly"
         private const val RELATIONSHIP = "Friends"
         private const val MONTH = "August"
         private const val AMOUNT = 100.0
@@ -37,6 +38,7 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
 
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 
+
         val requestSupportCommand = RequestSupportCommand(
             contributionId = CONTRIBUTION_ID,
             requestId = REQUEST_ID,
@@ -45,7 +47,8 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
             relationShip = RELATIONSHIP,
             month = MONTH,
             amount = AMOUNT,
-            notes = NOTES
+            notes = NOTES,
+            requestedForName = REQUESTED_FOR_NAME
         )
 
         commandGateway.sendAndWait<Any>(requestSupportCommand)
