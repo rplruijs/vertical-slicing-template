@@ -26,7 +26,7 @@ class GivenGiftsOverviewReadModel : ReadModel {
                             requestedForName = event.requestedForName,
                             reason = event.notes,
                             amount = event.amount,
-                            status = "REQUESTED"
+                            status = "Requested"
                         )
                     )
                 }
@@ -37,8 +37,9 @@ class GivenGiftsOverviewReadModel : ReadModel {
                     givenGifts = givenGifts.stream()
                         .map {
                             if (it.requestId != event.requestId) it
-                            else it.copy(status = "APPROVED")}
-                        .toList()
+                            else it.copy(status = "Approved")}
+                        .toList().toMutableList()
+
                 }
             }
         }

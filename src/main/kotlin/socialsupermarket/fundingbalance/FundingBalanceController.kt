@@ -14,7 +14,7 @@ import socialsupermarket.common.HtmlSnippet
 @Controller
 class FundingBalanceController(
     private val queryGateway: QueryGateway,
-    private val tempplateEngine: TemplateEngine
+    private val templateEngine: TemplateEngine
 ) {
 
     @GetMapping("/current-funding-balance", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
@@ -38,6 +38,6 @@ class FundingBalanceController(
     private fun currentFundingBalanceComponent(currentBalanceReadModel: CurrentBalanceReadModel): String {
         val context = Context()
         context.setVariable("currentFundingBalanceReadModel", currentBalanceReadModel )
-        return tempplateEngine.process("personal-landings-page/fragments/current-funding-balance", context).replace(Regex("[\\r\\n]"), "")
+        return templateEngine.process("personal-landings-page/fragments/current-funding-balance", context).replace(Regex("[\\r\\n]"), "")
     }
 }

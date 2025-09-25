@@ -1,7 +1,5 @@
 package socialsupermarket.requestsupport
 
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
@@ -15,12 +13,12 @@ import socialsupermarket.contributionlookup.ContributionLookUpReadModelEntity
 import socialsupermarket.contributionlookup.GetContribution
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.members.GetCurrentMember
+import socialsupermarket.members.GetMemberQuery
 import socialsupermarket.members.MemberReadModelEntity
 import java.time.LocalDate
 import java.util.UUID
 
 data class FinancialSupportRequestForm(
-
     val requestedFor: UUID? = null,
     val relationShip: String? = null,
     val month: String? = null,
@@ -39,16 +37,18 @@ class SupportRequestController(
     fun handleForm(
         @Valid @ModelAttribute("form") form: FinancialSupportRequestForm,
         bindingResult: BindingResult,
-        model: Model,
-        request: HttpServletRequest,
-        response: HttpServletResponse
+        model: Model
     ): String? {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("form", form)
-            return "support-request-form"
+            model.addAttribute("requestForm", form)
+            return "personal-landings-page/fragments/financial-support-request-form"
         }
 
         val memberReadModelEntity = queryGateway.query(GetCurrentMember(), MemberReadModelEntity::class.java).join()
+
+        val forMember = queryGateway.query(GetMemberQuery(form.requestedFor!!), MemberReadModelEntity::class.java).join()
+
+        queryGateway
         val contribution = queryGateway.query(GetContribution(memberReadModelEntity.memberId),
             ContributionLookUpReadModelEntity::class.java).join()
 
@@ -56,15 +56,16 @@ class SupportRequestController(
             contributionId = contribution.contributionId,
             requestId = UUID.randomUUID(),
             requestedBy = memberReadModelEntity.memberId,
-            requestedFor = form.requestedFor!!,
+            requestedFor = form.requestedFor,
             relationShip = form.relationShip!!,
             month = form.month!!,
             amount = form.amount!!,
             notes = form.notes!!,
-            requestedForName = memberReadModelEntity.fullName(),
+            requestedForName = forMember.fullName(),
             requestDate = LocalDate.now()
         ))
 
-        return null
+        model.addAttribute("requestForm", FinancialSupportRequestForm())
+        return "personal-landings-page/fragments/financial-support-request-form"
     }
 }
