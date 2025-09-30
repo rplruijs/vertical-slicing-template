@@ -1,7 +1,6 @@
 package socialsupermarket.closecontributionyear
 
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.eventhandling.DisallowReplay
 import org.axonframework.queryhandling.QueryGateway
 
 import org.springframework.stereotype.Component
@@ -11,7 +10,6 @@ import socialsupermarket.contributionstoclose.GetContributionsToClose
 import socialsupermarket.domain.commands.contribution.CloseContributionYearCommand
 import java.time.LocalDate
 
-@DisallowReplay
 @Component
 class CloseContributionProcessor(
     val commandGateway: CommandGateway,

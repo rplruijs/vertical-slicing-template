@@ -72,7 +72,7 @@ class FundingAggregate() {
                         fundingId = command.fundingId,
                         requestId = command.requestId,
                         amount = amountAwaitingFunding,
-                        atWaitingList = LocalDate.of(2024, 12, 31)
+                        atWaitingList = command.assessDate
                     )
                 }
             }

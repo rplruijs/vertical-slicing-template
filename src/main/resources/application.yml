@@ -29,16 +29,15 @@ axon:
   axonserver:
     enabled: false
   processors:
-      members:
-        mode: subscribing
-      contributions-to-close:
-        mode: subscribing
-
-
+    members:
+      mode: subscribing
+    contributions-to-close:
+      mode: subscribing
 
 app:
   scheduling:
     close-contribution: "*/1 * * * * *"
+    request-waiting-for-funding: "*/1 * * * * *"
 
 # JWT Configuration
 jwt:

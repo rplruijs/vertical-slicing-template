@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.junit.jupiter.api.Test
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
+import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
+import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.requestsupport.RequestSupportContributionAggregateTest.Companion.REQUESTED_FOR_NAME
 import java.time.LocalDate
 import java.util.UUID
 
 import kotlin.jvm.java
 
-class SupportRequestsReadModelTest : BaseIntegrationTest() {
+class FullyApprovedSupportRequestsReadModelTest : BaseIntegrationTest() {
     @Autowired private lateinit var commandGateway: CommandGateway
     @Autowired private lateinit var queryGateway: QueryGateway
 
@@ -30,8 +32,12 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
     }
 
     @Test
-    fun `get all support requests`() {
+    fun `support requests - fully approved`() {
         //WHEN
+        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, AMOUNT)
+        commandGateway.sendAndWait<Any>(registerGiftCommand)
+
+
         val command = RequestSupportCommand(
             contributionId = CONTRIBUTION_ID,
             requestId = REQUEST_ID,
@@ -46,13 +52,7 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
         )
         commandGateway.sendAndWait<Any>(command)
 
-        //THEN
-        val readModelEntity = SupportRequestReadModelEntity().apply {
-            requestId = REQUEST_ID
-            amount = AMOUNT
-            contributionId = CONTRIBUTION_ID
-        }
-        val expectedReadModel = SupportRequestsReadModel(listOf(readModelEntity))
+        val expectedReadModel = SupportRequestsReadModel(listOf())
 
         awaitUntilAsserted {
             val actualReadModel = queryGateway.query(GetAllSupportRequests(), SupportRequestsReadModel::class.java)
@@ -61,4 +61,5 @@ class SupportRequestsReadModelTest : BaseIntegrationTest() {
             assertThat(actualReadModel.get()).isEqualTo(expectedReadModel)
         }
     }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import socialsupermarket.authentication.jwt.JwtAuthenticationFilter
+import socialsupermarket.authentication.jwt.JwtLogoutHandler
 
 /**
  * Configuration class for Spring Security.
@@ -17,7 +18,10 @@ import socialsupermarket.authentication.jwt.JwtAuthenticationFilter
  */
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilter) {
+class WebSecurityConfig(
+    private val jwtAuthenticationFilter: JwtAuthenticationFilter,
+    private val jwtLogoutHandler: JwtLogoutHandler
+) {
 
     /**
      * Configures the security filter chain with:
@@ -86,9 +90,11 @@ class WebSecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFi
             .logout { logout ->
                 logout
                     .logoutUrl("/logout")
+                    .logoutRequestMatcher(AntPathRequestMatcher("/logout", "GET")) // Allow GET requests for logout
                     .logoutSuccessUrl("/login?logout=true")
                     .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID", "jwt_token") // Add JWT cookie name
+                    .deleteCookies("JSESSIONID") // Remove hardcoded JWT cookie name
+                    .addLogoutHandler(jwtLogoutHandler) // Add custom logout handler to clear JWT token
                     .permitAll()
             }
 

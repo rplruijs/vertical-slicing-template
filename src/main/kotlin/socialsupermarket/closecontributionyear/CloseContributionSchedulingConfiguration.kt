@@ -7,7 +7,7 @@ import org.springframework.scheduling.config.CronTask
 import org.springframework.scheduling.config.ScheduledTaskRegistrar
 
 @Configuration
-class SchedulingConfiguration(val closeContributionProcessor: CloseContributionProcessor) : SchedulingConfigurer {
+class CloseContributionSchedulingConfiguration(val closeContributionProcessor: CloseContributionProcessor) : SchedulingConfigurer {
     @Value("\${app.scheduling.close-contribution:*/1 * * * * *}")
     private lateinit var closeContributionCron: String
     
