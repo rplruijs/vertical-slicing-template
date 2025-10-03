@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Component
 import socialsupermarket.events.GiftRegisteredEvent
+import socialsupermarket.events.SupportApprovedAfterWaitingForFundingEvent
 import socialsupermarket.events.SupportApprovedEvent
 import socialsupermarket.events.SupportWaitForFundingEvent
 import socialsupermarket.fundingbalance.CurrentBalanceQuery
@@ -45,6 +46,19 @@ class PiggyBankReadModelProjector(val repository: PiggyBankReadModelRepository,
         repository.save(piggyBankReadModelEntity)
         emit(piggyBankReadModelEntity)
     }
+
+
+    @EventHandler
+    fun on(event: SupportApprovedAfterWaitingForFundingEvent) {
+        val piggyBankReadModelEntity = repository.getSingleInstance()!!
+        piggyBankReadModelEntity.pendingGiftAmount -= event.amount
+        piggyBankReadModelEntity.currentBalance -= event.amount
+        piggyBankReadModelEntity.lastModified = LocalDateTime.now()
+
+        repository.save(piggyBankReadModelEntity)
+        emit(piggyBankReadModelEntity)
+    }
+
 
     @EventHandler
     fun on(event: GiftRegisteredEvent) {

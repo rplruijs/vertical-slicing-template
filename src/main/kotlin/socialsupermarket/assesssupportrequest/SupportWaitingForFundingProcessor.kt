@@ -6,6 +6,7 @@ import org.axonframework.queryhandling.QueryGateway
 import socialsupermarket.common.Processor
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.funding.AssessSupportRequestCommand
+import socialsupermarket.domain.commands.funding.AssessWaitingSupportRequestCommand
 import socialsupermarket.supportrequests.GetAllSupportRequests
 import socialsupermarket.supportrequests.GetRequestsWaitingForFunding
 import socialsupermarket.supportrequests.SupportRequestsReadModel
@@ -21,12 +22,12 @@ class SupportWaitingForFundingProcessor(val commandGateway: CommandGateway,
             .join()
 
         supportRequests.data.forEach {
-            commandGateway.send<AssessSupportRequestCommand>(
-                AssessSupportRequestCommand(
+            commandGateway.send< AssessWaitingSupportRequestCommand>(
+                AssessWaitingSupportRequestCommand(
                     fundingId = DEFAULT_FUNDING_ID,
                     amount = it.amount,
                     requestId = it.requestId,
-                    assessDate = LocalDate.now()
+                    assessDate = LocalDate.now(),
                 )
             )
         }

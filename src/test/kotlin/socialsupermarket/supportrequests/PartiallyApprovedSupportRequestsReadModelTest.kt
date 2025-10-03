@@ -69,5 +69,4 @@ class PartiallyApprovedSupportRequestsReadModelTest : BaseIntegrationTest() {
             assertThat(actualReadModel).isEqualTo(expectedReadModel)
         }
     }
-
 }

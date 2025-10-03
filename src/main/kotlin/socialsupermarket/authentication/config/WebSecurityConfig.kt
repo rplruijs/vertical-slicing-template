@@ -71,7 +71,8 @@ class WebSecurityConfig(
                         AntPathRequestMatcher("/images/**"),
                         AntPathRequestMatcher("/webjars/**"),
                         AntPathRequestMatcher("/error"),
-                        AntPathRequestMatcher("/fake/external/gift-received-event")
+                        AntPathRequestMatcher("/fake/external/gift-received-event"),
+                        AntPathRequestMatcher("/debug/**")
                     ).permitAll()
                     // Protect personal-landings-page
                     .requestMatchers(AntPathRequestMatcher("/personal-landings-page")).authenticated()

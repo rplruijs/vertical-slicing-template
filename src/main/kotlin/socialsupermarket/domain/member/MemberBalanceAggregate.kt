@@ -26,24 +26,24 @@ class MemberBalanceAggregate() {
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     @CommandHandler
     fun handle(command: ImportMemberCommand, queryGateway: QueryGateway) {
+        val emailIsAvailable = queryGateway
+            .query(IsEmailAvailableQuery(command.email), Boolean::class.java)
+            .join() // Or .get(), but .join() throws unchecked exceptions
 
-        queryGateway.query(IsEmailAvailableQuery(command.email), Boolean::class.java)
-            .thenAccept { emailIsAvailable ->
-                if (emailIsAvailable) {
-                    AggregateLifecycle.apply(
-                        MemberImportedEvent(
-                            memberId = command.memberId,
-                            email = command.email,
-                            firstName = command.firstName,
-                            lastName = command.lastName,
-                            birthDate = command.birthDate,
-                            password = command.password,
-                            currentBalance = command.currentBalance,
-                        )
-                    )
-            } else {
-                throw CommandException(listOf("Email address already exists"))
-            }
+        if (emailIsAvailable) {
+            AggregateLifecycle.apply(
+                MemberImportedEvent(
+                    memberId = command.memberId,
+                    email = command.email,
+                    firstName = command.firstName,
+                    lastName = command.lastName,
+                    birthDate = command.birthDate,
+                    password = command.password,
+                    currentBalance = command.currentBalance,
+                )
+            )
+        } else {
+            throw CommandException(listOf("Email address already exists"))
         }
     }
 

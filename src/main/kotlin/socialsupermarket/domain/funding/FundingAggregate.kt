@@ -10,8 +10,10 @@ import org.axonframework.spring.stereotype.Aggregate
 import socialsupermarket.common.CommandException
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.funding.AssessSupportRequestCommand
+import socialsupermarket.domain.commands.funding.AssessWaitingSupportRequestCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.events.GiftRegisteredEvent
+import socialsupermarket.events.SupportApprovedAfterWaitingForFundingEvent
 import socialsupermarket.events.SupportApprovedEvent
 import socialsupermarket.events.SupportWaitForFundingEvent
 import java.time.LocalDate
@@ -21,6 +23,7 @@ import java.util.UUID
 class FundingAggregate() {
 
     private var balance: Double = 0.0
+
     @AggregateIdentifier
     var fundingId: UUID? = null
 
@@ -33,6 +36,22 @@ class FundingAggregate() {
         AggregateLifecycle.apply(GiftRegisteredEvent(command.fundingId , command.amount))
     }
 
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
+    @CommandHandler
+    fun handle(command: AssessWaitingSupportRequestCommand) {
+        when {
+            command.amount <= balance -> {
+                AggregateLifecycle.apply(
+                    SupportApprovedAfterWaitingForFundingEvent(
+                        fundingId = command.fundingId,
+                        requestId = command.requestId,
+                        amount = command.amount,
+                        approvalDate = command.assessDate,
+                    )
+                )
+            }
+        }
+    }
 
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
     @CommandHandler
@@ -47,6 +66,7 @@ class FundingAggregate() {
                         approvalDate = command.assessDate,
                     )
                 )
+
             }
             balance == 0.0 -> {
                 AggregateLifecycle.apply(
