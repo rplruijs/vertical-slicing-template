@@ -8,7 +8,7 @@ import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.StreamAssertions
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.events.MemberImportedEvent
-import socialsupermarket.memberexported.MemberExportedEvent
+import socialsupermarket.write.memberexported.MemberExportedEvent
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.UUID

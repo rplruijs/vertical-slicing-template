@@ -14,7 +14,7 @@ import socialsupermarket.domain.commands.member.ImportMemberCommand
 import socialsupermarket.domain.commands.member.IncreaseBalanceCommand
 import socialsupermarket.events.BalanceIncreasedEvent
 import socialsupermarket.events.MemberImportedEvent
-import socialsupermarket.members.IsEmailAvailableQuery
+import socialsupermarket.read.members.IsEmailAvailableQuery
 import java.util.UUID
 
 @Aggregate

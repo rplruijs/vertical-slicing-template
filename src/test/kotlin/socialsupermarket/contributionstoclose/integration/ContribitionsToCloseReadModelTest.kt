@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
-import socialsupermarket.contributionstoclose.ContributionToCloseReadModelEntity
-import socialsupermarket.contributionstoclose.ContributionsToCloseReadModel
-import socialsupermarket.contributionstoclose.GetContributionToClose
+import socialsupermarket.read.contributionstoclose.ContributionToCloseReadModelEntity
+import socialsupermarket.read.contributionstoclose.ContributionsToCloseReadModel
+import socialsupermarket.read.contributionstoclose.GetContributionToClose
 import socialsupermarket.domain.commands.contribution.StartContributionYearCommand
 import java.time.LocalDate
 import java.util.UUID

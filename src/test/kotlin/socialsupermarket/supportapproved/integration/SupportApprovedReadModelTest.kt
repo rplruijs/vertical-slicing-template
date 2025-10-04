@@ -9,9 +9,9 @@ import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
-import socialsupermarket.supportsapproved.GetSupportsQuery
-import socialsupermarket.supportsapproved.SupportApprovedReadModel
-import socialsupermarket.supportsapproved.SupportApprovedReadModelEntity
+import socialsupermarket.read.supportsapproved.GetSupportsQuery
+import socialsupermarket.read.supportsapproved.SupportApprovedReadModel
+import socialsupermarket.read.supportsapproved.SupportApprovedReadModelEntity
 import java.time.LocalDate
 import java.util.UUID
 

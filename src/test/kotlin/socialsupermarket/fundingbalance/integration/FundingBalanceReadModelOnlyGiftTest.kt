@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
-import socialsupermarket.domain.commands.funding.AssessSupportRequestCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
-import socialsupermarket.fundingbalance.CurrentBalanceQuery
-import socialsupermarket.fundingbalance.CurrentBalanceReadModel
-import java.util.UUID
+import socialsupermarket.read.fundingbalance.CurrentBalanceQuery
+import socialsupermarket.read.fundingbalance.CurrentBalanceReadModel
 
 class FundingBalanceReadModelOnlyGiftTest : BaseIntegrationTest() {
 

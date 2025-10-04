@@ -3,9 +3,9 @@ package socialsupermarket.authentication
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
-import socialsupermarket.members.GetCurrentMember
-import socialsupermarket.members.GetMemberWithEmail
-import socialsupermarket.members.MemberReadModelEntity
+import socialsupermarket.read.members.GetCurrentMember
+import socialsupermarket.read.members.GetMemberWithEmail
+import socialsupermarket.read.members.MemberReadModelEntity
 
 @Component
 class CurrentUserQueryHandler(val userContextService: UserContextService,

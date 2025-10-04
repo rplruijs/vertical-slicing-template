@@ -557,25 +557,23 @@
     }
 
     // Update nomination summary
+    // Update nomination summary
     function updateNominationSummary() {
-        const name = document.getElementById('nomineeName').value.trim();
-        const email = document.getElementById('nomineeEmail').value.trim();
-        const relationship = document.getElementById('relationship').value;
-        const reason = document.getElementById('nominationReason').value.trim();
+        const name = document.getElementById('nomineeName')?.value.trim() || '';
+        const relationship = document.getElementById('relationship')?.value || '';
+        const reason = document.getElementById('notes')?.value.trim() || ''; // Use 'notes' instead of 'nominationReason'
 
         if (name) document.getElementById('summaryNomineeName').textContent = name;
 
         if (relationship) {
-            const relationshipText = document.querySelector(`#relationship option[value="${relationship}"]`).textContent;
-            document.getElementById('summaryRelationship').textContent = relationshipText;
+            const relationshipText = document.querySelector(`#relationship option[value="${relationship}"]`)?.textContent;
+            if (relationshipText) {
+                document.getElementById('summaryRelationship').textContent = relationshipText;
+            }
         }
 
-        if (email) {
-            document.getElementById('summaryNomineeEmail').textContent = email;
-            document.getElementById('summaryNomineeEmailContainer').classList.remove('hidden');
-        } else {
-            document.getElementById('summaryNomineeEmailContainer').classList.add('hidden');
-        }
+        // Remove the email section since there's no email field
+        document.getElementById('summaryNomineeEmailContainer').classList.add('hidden');
 
         if (reason) {
             document.getElementById('summaryReason').textContent = reason;

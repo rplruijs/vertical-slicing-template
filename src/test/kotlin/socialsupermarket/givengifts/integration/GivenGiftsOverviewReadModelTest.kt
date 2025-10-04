@@ -1,6 +1,5 @@
 package socialsupermarket.givengifts.integration
 
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
@@ -11,14 +10,10 @@ import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.contribution.RequestSupportCommand
 import socialsupermarket.domain.commands.contribution.StartContributionYearCommand
-import socialsupermarket.domain.commands.funding.AssessSupportRequestCommand
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
-import socialsupermarket.fundingbalance.CurrentBalanceQuery
-import socialsupermarket.fundingbalance.CurrentBalanceReadModel
-import socialsupermarket.givengifts.Gift
-import socialsupermarket.givengifts.GivenGiftsOverviewQuery
-import socialsupermarket.givengifts.GivenGiftsOverviewReadModel
-import socialsupermarket.requestsupport.RequestSupportContributionAggregateTest.Companion.REQUESTED_FOR
+import socialsupermarket.read.givengifts.Gift
+import socialsupermarket.read.givengifts.GivenGiftsOverviewQuery
+import socialsupermarket.read.givengifts.GivenGiftsOverviewReadModel
 import java.time.LocalDate
 import java.util.UUID
 

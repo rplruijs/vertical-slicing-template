@@ -8,7 +8,7 @@ import socialsupermarket.common.support.StreamAssertions
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.events.GiftRegisteredEvent
-import socialsupermarket.registrategift.GiftReceivedEvent
+import socialsupermarket.write.registrategift.GiftReceivedEvent
 
 class GiftReceivedProcessorTest : BaseIntegrationTest() {
 

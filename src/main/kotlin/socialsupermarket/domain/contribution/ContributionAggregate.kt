@@ -116,6 +116,7 @@ class ContributionAggregate() {
         }
     }
 
+
     data class Support(
         val requestedFor: UUID,
         val amountRequested: Double,

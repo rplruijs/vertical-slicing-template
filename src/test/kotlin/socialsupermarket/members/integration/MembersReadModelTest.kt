@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test
 import socialsupermarket.common.support.BaseIntegrationTest
 import socialsupermarket.common.support.awaitUntilAsserted
 import socialsupermarket.domain.commands.member.ImportMemberCommand
-import socialsupermarket.members.AllMembersQuery
-import socialsupermarket.members.GetMemberQuery
-import socialsupermarket.members.MemberReadModelEntity
-import socialsupermarket.members.MembersReadModel
+import socialsupermarket.read.members.AllMembersQuery
+import socialsupermarket.read.members.GetMemberQuery
+import socialsupermarket.read.members.MemberReadModelEntity
+import socialsupermarket.read.members.MembersReadModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.UUID

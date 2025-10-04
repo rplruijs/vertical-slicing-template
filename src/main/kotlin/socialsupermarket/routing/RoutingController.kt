@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import socialsupermarket.authentication.UserContextService
-import socialsupermarket.login.LoginForm
-import socialsupermarket.registration.RegistrationForm
-import socialsupermarket.requestsupport.FinancialSupportRequestForm
+import socialsupermarket.authentication.login.LoginForm
+import socialsupermarket.write.registration.RegistrationForm
+import socialsupermarket.write.requestsupport.FinancialSupportRequestForm
 
 
 @Controller
@@ -15,7 +15,7 @@ class RoutingController(private val userContextService: UserContextService) {
 
     @GetMapping("/")
     fun landingPage(model: Model): String {
-        return "index"
+        return "pages/index"
     }
 
     @GetMapping("/personal-landings-page")
@@ -25,19 +25,19 @@ class RoutingController(private val userContextService: UserContextService) {
         model.addAttribute("userEmail", userEmail)
         model.addAttribute("requestForm", FinancialSupportRequestForm())
 
-        return "personal-landings-page/personal-landings-page-extended"
+        return "pages/personal-landings-page"
     }
 
     @GetMapping("/registration")
     fun registration(model: Model) : String {
         model.addAttribute("form", RegistrationForm())
-        return "registration"
+        return "pages/registration"
     }
 
 
     @GetMapping("/login")
     fun loginClean(model: Model): String {
         model.addAttribute("form", LoginForm())
-        return "login"
+        return "pages/login"
     }
 }
