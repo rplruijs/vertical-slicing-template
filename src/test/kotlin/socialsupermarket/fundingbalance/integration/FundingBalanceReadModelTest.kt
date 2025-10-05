@@ -11,6 +11,7 @@ import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
 import socialsupermarket.read.fundingbalance.CurrentBalanceQuery
 import socialsupermarket.read.fundingbalance.CurrentBalanceReadModel
+import java.time.LocalDate
 
 class FundingBalanceReadModelTest : BaseIntegrationTest() {
 
@@ -22,7 +23,7 @@ class FundingBalanceReadModelTest : BaseIntegrationTest() {
 
     @Test
     fun `gift of x - currentBalance = x`() {
-        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0))
+        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0, LocalDate.now()))
 
         awaitUntilAsserted {
             val actualReadModel =

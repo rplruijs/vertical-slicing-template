@@ -36,7 +36,7 @@ class PartiallyApprovedButExtraFundingSupportRequestsReadModelTest : BaseIntegra
     @Test
     fun `support requests - partially approved but extra funding`() {
         //WHEN
-        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0)
+        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0, LocalDate.now())
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 
         val command = RequestSupportCommand(
@@ -54,7 +54,7 @@ class PartiallyApprovedButExtraFundingSupportRequestsReadModelTest : BaseIntegra
         commandGateway.sendAndWait<Any>(command)
 
 
-        val registerGiftCommandExtra = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0)
+        val registerGiftCommandExtra = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0, LocalDate.now())
         commandGateway.sendAndWait<Any>(registerGiftCommandExtra)
 
 

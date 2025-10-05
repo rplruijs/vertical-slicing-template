@@ -40,7 +40,7 @@ class GivenGiftsOverviewReadModelTest : BaseIntegrationTest() {
 
     @Test
     fun `no gifts given`() {
-        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0))
+        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0, LocalDate.now()))
         commandGateway.sendAndWait<Any>(StartContributionYearCommand(contributionId = CONTRIBUTION_ID, memberId = MEMBER_ID, startDate = LocalDate.now()))
 
         awaitUntilAsserted {
@@ -62,7 +62,7 @@ class GivenGiftsOverviewReadModelTest : BaseIntegrationTest() {
 
     @Test
     fun `1 gift given`() {
-        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0))
+        commandGateway.sendAndWait<Any>(RegisterGiftCommand(DEFAULT_FUNDING_ID, 100.0, LocalDate.now()))
         commandGateway.sendAndWait<Any>(StartContributionYearCommand(contributionId = CONTRIBUTION_ID, memberId = MEMBER_ID, startDate = LocalDate.now()))
         commandGateway.sendAndWait<Any>(RequestSupportCommand(
             contributionId = CONTRIBUTION_ID,

@@ -6,6 +6,7 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.domain.commands.funding.RegisterGiftCommand
+import java.time.LocalDate
 
 @Component
 class GiftReceivedKafkaConsumer(val commandGateway: CommandGateway, ) {
@@ -18,6 +19,7 @@ class GiftReceivedKafkaConsumer(val commandGateway: CommandGateway, ) {
             RegisterGiftCommand(
                 fundingId = DEFAULT_FUNDING_ID,
                 amount = event.amount,
+                date = LocalDate.now(),
                 )
         )
     }

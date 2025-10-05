@@ -39,7 +39,7 @@ class PartiallyApprovedSupportRequestsReadModelTest : BaseIntegrationTest() {
     @Test
     fun `support requests - partially approved`() {
         //WHEN
-        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0)
+        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 60.0, LocalDate.now())
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 
         val command = RequestSupportCommand(

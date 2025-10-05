@@ -35,7 +35,7 @@ class SupportsApprovedProcessorTest : BaseIntegrationTest() {
     @Test
     fun `Supports approved processor test`() {
 
-        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 1000.0)
+        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, 1000.0, LocalDate.now())
 
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 

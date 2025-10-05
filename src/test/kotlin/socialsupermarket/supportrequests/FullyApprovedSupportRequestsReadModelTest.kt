@@ -36,7 +36,7 @@ class FullyApprovedSupportRequestsReadModelTest : BaseIntegrationTest() {
     @Test
     fun `support requests - fully approved`() {
         //WHEN
-        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, AMOUNT)
+        val registerGiftCommand = RegisterGiftCommand(DEFAULT_FUNDING_ID, AMOUNT, LocalDate.now())
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 
 

@@ -58,10 +58,7 @@
             </div>
             <div class="flex-grow">
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <h2 class="text-2xl font-bold text-gray-800">
-                        Good morning John,
-                    </h2>
-                    <!-- Balances: Overall Gift Balance + Funding Balance -->
+                    <div th:include="~{read/welcome-message}"></div>                    <!-- Balances: Overall Gift Balance + Funding Balance -->
                     <div class="flex flex-col sm:flex-row gap-3">
                         <!-- Funding Balance  -->
                         <div hx-ext="sse" sse-connect="/current-funding-balance" sse-swap="current-funding-balance-updated">

@@ -33,7 +33,7 @@ class FundingAggregate() {
         if (command.amount < 0.0) {
             throw CommandException(listOf("Amount must be positive"))
         }
-        AggregateLifecycle.apply(GiftRegisteredEvent(command.fundingId , command.amount))
+        AggregateLifecycle.apply(GiftRegisteredEvent(command.fundingId, command.amount, command.date))
     }
 
     @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
@@ -109,6 +109,11 @@ class FundingAggregate() {
     @EventSourcingHandler
     fun on(event: SupportApprovedEvent) {
         fundingId = DEFAULT_FUNDING_ID
+        balance -= event.amount
+    }
+
+    @EventSourcingHandler
+    fun on(event: SupportApprovedAfterWaitingForFundingEvent) {
         balance -= event.amount
     }
 

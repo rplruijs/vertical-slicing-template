@@ -26,4 +26,6 @@ class AuthenticationQueryHandler(
     fun handle(query: GetAuthenticationByEmailQuery): AuthenticationEntity? {
         return repository.findByEmail(query.email)
     }
+
+
 }

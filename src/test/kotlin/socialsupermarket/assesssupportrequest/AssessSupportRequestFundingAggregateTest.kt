@@ -32,7 +32,7 @@ class AssessSupportRequestFundingAggregateTest {
 
             //GIVEN
             val events = mutableListOf<Event>()
-            val giftRequestedEvents = GiftRegisteredEvent(DEFAULT_FUNDING_ID, 300.0)
+            val giftRequestedEvents = GiftRegisteredEvent(DEFAULT_FUNDING_ID, 300.0, LocalDate.now())
             events.add(giftRequestedEvents)
 
             //WHEN
@@ -65,7 +65,7 @@ class AssessSupportRequestFundingAggregateTest {
 
         //GIVEN
         val events = mutableListOf<Event>()
-        val giftRequestedEvents = GiftRegisteredEvent(DEFAULT_FUNDING_ID, 80.0)
+        val giftRequestedEvents = GiftRegisteredEvent(DEFAULT_FUNDING_ID, 80.0, LocalDate.now())
         events.add(giftRequestedEvents)
 
         //WHEN

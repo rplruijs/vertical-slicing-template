@@ -10,6 +10,7 @@ import socialsupermarket.domain.funding.FundingAggregate
 import org.junit.jupiter.api.Test
 import socialsupermarket.domain.DEFAULT_FUNDING_ID
 import socialsupermarket.events.GiftRegisteredEvent
+import java.time.LocalDate
 
 class GiftRegistratedAggregateTest {
 
@@ -26,12 +27,12 @@ class GiftRegistratedAggregateTest {
         val events = mutableListOf<Event>()
 
         //WHEN
-        val command = RegisterGiftCommand(DEFAULT_FUNDING_ID, 1000.0)
+        val command = RegisterGiftCommand(DEFAULT_FUNDING_ID, 1000.0, LocalDate.now())
 
         // THEN
         val expectedEvents = mutableListOf<Event>()
 
-        expectedEvents.add(GiftRegisteredEvent(DEFAULT_FUNDING_ID, 1000.0))
+        expectedEvents.add(GiftRegisteredEvent(DEFAULT_FUNDING_ID, 1000.0, LocalDate.now()))
 
         fixture
             .given(events)
@@ -48,7 +49,7 @@ class GiftRegistratedAggregateTest {
         val events = mutableListOf<Event>()
 
         //WHEN
-        val command = RegisterGiftCommand( DEFAULT_FUNDING_ID, -100.0)
+        val command = RegisterGiftCommand(DEFAULT_FUNDING_ID, -100.0, LocalDate.now())
 
         fixture
             .given(events)

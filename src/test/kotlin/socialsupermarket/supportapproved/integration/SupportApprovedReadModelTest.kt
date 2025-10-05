@@ -39,7 +39,7 @@ class SupportApprovedReadModelTest : BaseIntegrationTest() {
     fun `from approved to given supports when enough funding`() {
 
         // WHEN - Register Gift Command
-        val registerGiftCommand = RegisterGiftCommand(FUNDING_ID, AMOUNT)
+        val registerGiftCommand = RegisterGiftCommand(FUNDING_ID, AMOUNT, LocalDate.now())
         commandGateway.sendAndWait<Any>(registerGiftCommand)
 
 
